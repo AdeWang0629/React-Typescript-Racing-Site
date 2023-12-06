@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
 import AppRoutes from './routes/routes';
 import { useCookies } from 'react-cookie';
 import { getUserToken } from './routes/helpers';
 import { useDispatch } from 'react-redux';
 import actions from './redux/Auth/actions';
+
+import 'semantic-ui-css/semantic.min.css'
+import './App.css';
 
 const App = () => {
   const [cookies] = useCookies(['usertoken']);

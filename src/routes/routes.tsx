@@ -95,7 +95,7 @@ const AppRoutes: FC<IAppRoutesPops> = ({isAuthenticated, role}) => {
       }
     })
     
-  },[mainNavigationData]);
+  },[mainNavigationData, location.pathname]);
 
   const ModifiedMainLayout = () => {
     return (
