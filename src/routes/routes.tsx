@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { IRoute } from "../types/RouteType";
 import { routes as default_routes, authRoutes } from "./index";
@@ -70,8 +70,9 @@ interface IAppRoutesPops {
 }
 
 const AppRoutes: FC<IAppRoutesPops> = ({isAuthenticated, role}) => {
-
+  const location = useLocation();
   const [mainNavigationData, setMainNavigationData] = useState<NavigationItem[]>([]);
+  const [currentPageName, setCurrentPageName] = useState("");
 
   useEffect(()=>{
 
@@ -85,9 +86,20 @@ const AppRoutes: FC<IAppRoutesPops> = ({isAuthenticated, role}) => {
     
   },[role]);
 
+
+  useEffect(()=>{
+
+    mainNavigationData.map((item:any) => {
+      if (item.href === location.pathname) {
+        setCurrentPageName(item.name);
+      }
+    })
+    
+  },[mainNavigationData]);
+
   const ModifiedMainLayout = () => {
     return (
-      <MainLayout mainNavigationData={mainNavigationData}>
+      <MainLayout mainNavigationData={mainNavigationData} currentPageName={currentPageName}>
         <Outlet />
       </MainLayout>
     );

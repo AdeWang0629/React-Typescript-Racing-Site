@@ -1,3 +1,11 @@
 .cursor {
     cursor: pointer;
 }
+
+.spring-green {
+    background-color: "#00ff7f";
+}
+
+.wheat {
+    background-color: "#f5deb3";
+}

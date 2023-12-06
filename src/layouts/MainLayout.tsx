@@ -11,6 +11,7 @@ import actions from "../redux/Auth/actions";
 type MainLayoutProps = {
   children: ReactNode;
   mainNavigationData: any;
+  currentPageName: string;
 }
 
 
@@ -36,13 +37,13 @@ const userNavigation = [
   { name: '設定', href: '/' },
 ]
 
-const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData }) => {
+const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData, currentPageName }) => {
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
+  const navigate = useNavigate();
   const [mainNavigation, setMainNavigation] = useState<NavigationItem[]>(mainNavigationData);
-  
+
   useEffect(()=>{
     const oldMainNavigation = mainNavigation.map((item:any) => {
       item.current = false;
@@ -63,16 +64,16 @@ const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData }) => {
 
   return (
     <div className="min-h-full">
-      <Disclosure as="nav" className="bg-gray-800">
+      <Disclosure as="nav" style={{backgroundColor: '#00ff7f'}}>
         {({ open }) => (
           <>
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
               <div className="flex h-16 items-center justify-between">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <img
                       className="h-8 w-8"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                      src={brandImgPath}
                       alt="Your Company"
                     />
                   </div>
@@ -84,11 +85,12 @@ const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData }) => {
                           to={item.href}
                           className={classNames(
                             item.current
-                              ? 'bg-gray-900 text-white'
-                              : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                            'rounded-md px-3 py-2 text-sm font-medium'
+                              ? 'bg-green-900'
+                              : 'text-gray-300 hover:bg-green-700 hover:text-white',
+                            'rounded-md px-3 py-2 text-sm font-medium text-black'
                           )}
                           aria-current={item.current ? 'page' : undefined}
+                          style={item.current ? {color: 'white'} : undefined}
                         >
                           {item.name}
                         </Link>
@@ -100,7 +102,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData }) => {
                   <div className="ml-4 flex items-center md:ml-6">
                     <button
                       type="button"
-                      className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                      className="relative rounded-full p-1 text-black-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">View notifications</span>
@@ -110,7 +112,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData }) => {
                     {/* Profile dropdown */}
                     <Menu as="div" className="relative ml-3">
                       <div>
-                        <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <Menu.Button className="relative flex max-w-xs items-center rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-green-800">
                           <span className="absolute -inset-1.5" />
                           <span className="sr-only">Open user menu</span>
                           <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
@@ -161,7 +163,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData }) => {
                 </div>
                 <div className="-mr-2 flex md:hidden">
                   {/* Mobile menu button */}
-                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md bg-green-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-green-800">
                     <span className="absolute -inset-0.5" />
                     <span className="sr-only">Open main menu</span>
                     {open ? (
@@ -181,10 +183,11 @@ const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData }) => {
                     key={item.name}
                     to={item.href}
                     className={classNames(
-                      item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                      'block rounded-md px-3 py-2 text-base font-medium'
+                      item.current ? 'bg-green-900 text-white' : 'text-gray-300 hover:bg-green-700 hover:text-white',
+                      'block rounded-md px-3 py-2 text-base font-medium text-black'
                     )}
                     aria-current={item.current ? 'page' : undefined}
+                    style={item.current ? {color: 'white'} : undefined}
                   >
                     {item.name}
                   </Link>
@@ -197,11 +200,11 @@ const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData }) => {
                   </div>
                   <div className="ml-3">
                     <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                    <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
+                    <div className="text-sm font-medium leading-none text-black-400">{user.email}</div>
                   </div>
                   <button
                     type="button"
-                    className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    className="relative ml-auto flex-shrink-0 rounded-full p-1 text-black-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black-800"
                   >
                     <span className="absolute -inset-1.5" />
                     <span className="sr-only">View notifications</span>
@@ -213,13 +216,13 @@ const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData }) => {
                     <Link
                       key={item.name}
                       to={item.href}
-                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                      className="block rounded-md px-3 py-2 text-base font-medium text-black-400 hover:bg-green-700 hover:text-white"
                     >
                       {item.name}
                     </Link>
                   ))}
                   <span
-                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                    className="block rounded-md px-3 py-2 text-base font-medium text-black-400 hover:bg-green-700 hover:text-white"
                     onClick={() => dispatch({type:actions.LOGOUT})}
                   >
                     サインアウト
@@ -232,13 +235,13 @@ const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData }) => {
       </Disclosure>
 
       <header className="bg-white shadow">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
+        <div className="mx-auto max-w-screen-2xl px-4 py-2 sm:px-6 lg:px-8">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900">{currentPageName}</h1>
         </div>
       </header>
 
       <main>
-        <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-screen-2xl py-6 sm:px-6 lg:px-8">
 
           {children}
 

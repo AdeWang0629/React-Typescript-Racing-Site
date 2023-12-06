@@ -6,7 +6,7 @@ type AuthLayoutProps = {
 
 const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
   return (
-    <div>
+    <div style={{minHeight: '100vh', backgroundColor: '#f5deb3'}}>
       {children}
     </div>
   )

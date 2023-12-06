@@ -9,7 +9,7 @@ import actions from './redux/Auth/actions';
 const App = () => {
   const [cookies] = useCookies(['usertoken']);
   const dispatch = useDispatch();
-
+  
   const [role, setRole] = useState(cookies.usertoken ? cookies.usertoken.role * 1 : 0);
   const [isAuthenticated, setIsAuthenticated] = useState(cookies.usertoken ? true : false);
 
