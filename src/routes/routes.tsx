@@ -8,14 +8,6 @@ import AuthLayout from "../layouts/AuthLayout";
 import MainLayout from "../layouts/MainLayout";
 import NotFoundPage from "../components/NotFoundPage";
 
-const ModifiedMainLayout = () => {
-  return (
-    <MainLayout>
-      <Outlet />
-    </MainLayout>
-  );
-};
-
 const ModifiedAuthLayout = () => {
   return (
     <AuthLayout>
@@ -40,12 +32,66 @@ const RedirectLoginComponent: FC = (): any => {
   }, [navigate]);
 };
 
+const userNavigation = [
+  { name: 'トップ', href: '/', current: true },
+  { name: 'ランキング', href: '/ranking', current: false },
+  { name: '予想バトル', href: '/expected-battle', current: false },
+  { name: '育成ゲーム', href: '/training-game', current: false },
+]
+
+const adminNavigation = [
+
+  { name: 'トップ', href: '/', current: true },
+  { name: 'ランキング', href: '/ranking', current: false },
+  { name: '予想バトル', href: '/expected-battle', current: false },
+  { name: '育成ゲーム', href: '/training-game', current: false },
+  { name: 'レース管理', href: '/race-management', current: false },
+]
+
+const superAdminNavigation = [
+
+  { name: 'トップ', href: '/', current: true },
+  { name: 'ランキング', href: '/ranking', current: false },
+  { name: '予想バトル', href: '/expected-battle', current: false },
+  { name: '育成ゲーム', href: '/training-game', current: false },
+  { name: 'レース管理', href: '/race-management', current: false },
+  { name: '成績管理', href: '/grade-management', current: false },
+  { name: 'ユーザー情報', href: '/user-information', current: false },
+]
+
+type NavigationItem = {
+  name: string;
+  href: string;
+  current: boolean;
+}
 interface IAppRoutesPops {
   isAuthenticated: boolean;
   role: number;
 }
 
 const AppRoutes: FC<IAppRoutesPops> = ({isAuthenticated, role}) => {
+
+  const [mainNavigationData, setMainNavigationData] = useState<NavigationItem[]>([]);
+
+  useEffect(()=>{
+
+    if (role == 0) {
+      setMainNavigationData(userNavigation);
+    }else if (role == 1) {
+      setMainNavigationData(adminNavigation);
+    }else if (role == 2) {
+      setMainNavigationData(superAdminNavigation);
+    }
+    
+  },[role]);
+
+  const ModifiedMainLayout = () => {
+    return (
+      <MainLayout mainNavigationData={mainNavigationData}>
+        <Outlet />
+      </MainLayout>
+    );
+  };
 
   return (
     <>
@@ -60,10 +106,10 @@ const AppRoutes: FC<IAppRoutesPops> = ({isAuthenticated, role}) => {
               element={
                 isAuthenticated ?
                 (
-                  (route.permission ? route.permission : 4) >= 0 ? (
+                  (route.permission ? route.permission : 0) <=  role ? (
                     <route.component />
                   ) : (
-                    <RedirectComponent />
+                    <NotFoundPage />
                   )
                 )
                 : 

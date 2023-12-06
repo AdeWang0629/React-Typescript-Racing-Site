@@ -10,7 +10,7 @@ const App = () => {
   const [cookies] = useCookies(['usertoken']);
   const dispatch = useDispatch();
 
-  const [role, setRole] = useState(cookies.usertoken ? parseInt(cookies.usertoken?.role, 10) : 0);
+  const [role, setRole] = useState(cookies.usertoken ? cookies.usertoken.role * 1 : 0);
   const [isAuthenticated, setIsAuthenticated] = useState(cookies.usertoken ? true : false);
 
   useEffect(() => {
@@ -23,6 +23,7 @@ const App = () => {
         type: actions.SAVE_USERDATA,
         payload: data
       });
+      
       setIsAuthenticated(true);
     }
   }, [cookies]);

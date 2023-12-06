@@ -6,10 +6,10 @@ import axiosClient from '../../config/axiosClient';
 // import 'react-toastify/dist/ReactToastify.css';
 import { setToken, setUserToken, removeToken, removeUserToken } from '../../routes/helpers';
 
-function* login(payload : any) : Generator<any, void, any> {
+function* login({payload} : any) : Generator<any, void, any> {
   try {
     const { data, navigate } = payload;
-
+    console.log(data);
     const newData = {
       data: data
     };
@@ -39,7 +39,7 @@ function* login(payload : any) : Generator<any, void, any> {
   }
 }
 
-function* register(payload : any) : Generator<any, void, any> {
+function* register({payload} : any) : Generator<any, void, any> {
   try {
 
     const { data, navigate } = payload;
@@ -71,14 +71,12 @@ function* register(payload : any) : Generator<any, void, any> {
   }
 }
 
-function* logout(payload : any) {
+function* logout() {
   try {
-    const {navigate} = payload;
 
     removeToken();
     removeUserToken();
     
-    navigate('/');
   } catch (e) {
     yield put({type: actions.LOGOUT_FAILURE});
   }

@@ -41,10 +41,10 @@ const SignIn: FC = (): ReactElement => {
           <Formik
             initialValues={values}
             validationSchema={validationSchema}
-            onSubmit={(data, { setSubmitting }) => {
+            onSubmit={(value, { setSubmitting }) => {
               dispatch({
                 type: actions.LOGIN,
-                payload: { data, navigate }
+                payload: {data : value, navigate}
               });
               setSubmitting(false);
             }}
