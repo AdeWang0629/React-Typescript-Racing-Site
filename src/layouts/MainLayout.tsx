@@ -89,7 +89,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData, current
                           className={classNames(
                             item.current
                               ? 'bg-green-900'
-                              : 'text-gray-300 hover:bg-green-700 hover:text-white',
+                              : 'text-black-300 hover:bg-green-700 hover:text-white',
                             'rounded-md px-3 py-2 text-sm font-medium text-black'
                           )}
                           aria-current={item.current ? 'page' : undefined}
@@ -186,7 +186,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData, current
                     key={item.name}
                     to={item.href}
                     className={classNames(
-                      item.current ? 'bg-green-900 text-white' : 'text-gray-300 hover:bg-green-700 hover:text-white',
+                      item.current ? 'bg-green-900 text-white' : 'text-black-300 hover:bg-green-700 hover:text-white',
                       'block rounded-md px-3 py-2 text-base font-medium text-black'
                     )}
                     aria-current={item.current ? 'page' : undefined}
