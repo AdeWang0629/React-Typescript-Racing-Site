@@ -1,10 +1,20 @@
 import * as React from 'react'
+import { Segment, Label } from 'semantic-ui-react';
+import ExpandableTable from './ExpandableTable';
 
 const ExpectedBattlePage = () => {
     return (
-        <h1>
-            This is ExpectedBattlePage
-        </h1>
+        <Segment raised style={{backgroundColor: "#f5deb3"}}>
+
+            <div className='pb-3'>
+                <Label as='a' color='orange' ribbon>
+                    予 想 バ ト ル 
+                </Label>
+            </div>
+
+            <ExpandableTable />
+
+        </Segment>
     )
 }
 

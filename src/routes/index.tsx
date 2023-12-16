@@ -5,6 +5,8 @@ const SignIn = async(() => import("../pages/auth/SignIn"));
 const SignUp = async(() => import("../pages/auth/SignUp"));
 
 const HomePage = async(()=>import("../pages/HomePage"));
+const MyPage = async(()=>import("../pages/MyPage"));
+const Setting = async(()=>import("../pages/Setting"));
 const RankingPage = async(()=>import("../pages/RankingPage"));
 const ExpectedBattlePage = async(()=>import("../pages/ExpectedBattlePage"));
 const TrainingGamePage = async(()=>import("../pages/TrainingGamePage"));
@@ -13,8 +15,6 @@ const GradeManagementPage = async(()=>import("../pages/GradeManagementPage"));
 const UserInformationPage = async(()=>import("../pages/UserInformationPage"));
 
 export const routes: Array<IRoute> = [
-
-
   //------------------User Management------------------
   {
     key: "home-page-route",
@@ -71,6 +71,24 @@ export const routes: Array<IRoute> = [
     enabled: true,
     permission: 2,
     component: UserInformationPage,
+  },
+];
+
+export const defaultRoutes: Array<IRoute> = [
+  //------------------User Management------------------
+  {
+    key: "my-page-route",
+    title: "/マイページ",
+    path: "/mypage",
+    enabled: true,
+    component: MyPage,
+  },
+  {
+    key: "user-information-route",
+    title: "/設定",
+    path: "/",
+    enabled: true,
+    component: MyPage,
   },
 ];
 

@@ -9,6 +9,8 @@ import 'semantic-ui-css/semantic.min.css'
 
 import './App.css';
 
+import { ToastContainer } from 'react-toastify';
+
 const App = () => {
   const [cookies] = useCookies(['usertoken']);
   const dispatch = useDispatch();
@@ -27,11 +29,17 @@ const App = () => {
         payload: data
       });
       
+      setRole(cookies.usertoken.role * 1);
       setIsAuthenticated(true);
     }
   }, [cookies]);
 
-  return <AppRoutes isAuthenticated={isAuthenticated} role={role} />
+  return (
+    <div>
+      <AppRoutes isAuthenticated={isAuthenticated} role={role} />   
+      <ToastContainer />
+    </div>
+  )
 }
 
 export default App;

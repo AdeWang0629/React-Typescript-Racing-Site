@@ -1,6 +1,6 @@
 import {all, call, put, takeLatest} from 'redux-saga/effects'
 import actions from './actions';
-import {postRequest, getCustomRequest, getRequest, deleteRequest} from '../../config/axiosClient'
+import {postRequest, getRequest, deleteRequest} from '../../config/axiosClient'
 import axiosClient from '../../config/axiosClient';
 // import { toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';

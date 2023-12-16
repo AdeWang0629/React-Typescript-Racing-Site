@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { IRoute } from "../types/RouteType";
-import { routes as default_routes, authRoutes } from "./index";
+import { routes as main_routes, defaultRoutes, authRoutes } from "./index";
 import { useNavigate } from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
 import MainLayout from "../layouts/MainLayout";
@@ -111,7 +111,7 @@ const AppRoutes: FC<IAppRoutesPops> = ({isAuthenticated, role}) => {
 
         <Route element={<ModifiedMainLayout />}>
 
-          {default_routes.map((route: IRoute) => (
+          {main_routes.map((route: IRoute) => (
             <Route
               key={route.key}
               path={route.path}
@@ -131,8 +131,21 @@ const AppRoutes: FC<IAppRoutesPops> = ({isAuthenticated, role}) => {
           ))}
 
         </Route>
-        
-        
+
+        <Route element={<ModifiedAuthLayout />}>
+
+          {defaultRoutes.map((route: IRoute) => (
+            <Route
+              key={route.key}
+              path={route.path}
+              element={
+                <route.component />
+              }
+            />
+          ))}
+
+        </Route>
+
         <Route element={<ModifiedAuthLayout />}>
 
           {authRoutes.map((route: IRoute) => (

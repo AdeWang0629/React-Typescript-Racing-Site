@@ -35,8 +35,8 @@ const user = {
 }
 
 const userNavigation = [
-  { name: 'プロフィール', href: '/' },
-  { name: '設定', href: '/' },
+  { name: 'マイページ', href: '/mypage' },
+  { name: 'ユーザー情報の変更', href: '/user-information' },
 ]
 
 const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData, currentPageName }) => {

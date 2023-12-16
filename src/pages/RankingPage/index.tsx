@@ -1,10 +1,15 @@
 import EditTable from "../../components/EditTable";
 import { Label, Segment, Message } from 'semantic-ui-react'
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import type { ColumnsType } from 'antd/es/table';
+import { RankingDataType } from "../../interface/RankingDataType";
+import { useDispatch, useSelector } from "react-redux";
+import actions from "../../redux/Ranking/actions";
+import { RootState } from "../../redux/store";
 
-const people = [
+const ranking = [
     {
       id: 1,
       name: '月間ランキング',
@@ -24,15 +29,142 @@ const people = [
 ]
   
 function classNames(...classes: any[]) {
-return classes.filter(Boolean).join(' ')
+    return classes.filter(Boolean).join(' ')
 }
+
+const columns: ColumnsType<RankingDataType> = [
+    {
+      title: '順位',
+      dataIndex: 'rank',
+      sorter: true,
+      width: '9%',
+      render: (_, record) => (
+        <span>{record.rank}順</span>
+      )
+    },
+    {
+      title: '名前',
+      dataIndex: 'name',
+      filters: [
+        { text: 'Male', value: 'male' },
+        { text: 'Female', value: 'female' },
+      ],
+      width: '9%',
+    },
+    {
+      title: '回数',
+      dataIndex: 'number_times',
+      sorter: true,
+      width: '9%',
+    },
+    {
+      title: 'pt',
+      dataIndex: 'point',
+      sorter: true,
+      width: '9%',
+    },
+    {
+      title: '◎',
+      dataIndex: 'double_circle',
+      sorter: true,
+      width: '8%',
+      render: (_, record) => (
+        <span>{record.double_circle}%</span>
+      )
+    },
+    {
+      title: '○',
+      dataIndex: 'single_circle',
+      sorter: true,
+      width: '8%',
+      render: (_, record) => (
+        <span>{record.single_circle}%</span>
+      )
+    },
+    {
+      title: '▲',
+      dataIndex: 'triangle',
+      sorter: true,
+      width: '8%',
+      render: (_, record) => (
+        <span>{record.triangle}%</span>
+      )
+    },
+    {
+      title: '☆',
+      dataIndex: 'five_star',
+      sorter: true,
+      width: '8%',
+      render: (_, record) => (
+        <span>{record.five_star}%</span>
+      )
+    },
+    {
+      title: '穴',
+      dataIndex: 'hole',
+      sorter: true,
+      width: '8%',
+      render: (_, record) => (
+        <span>{record.hole}%</span>
+      )
+    },
+    {
+      title: '消',
+      dataIndex: 'disappear',
+      sorter: true,
+      width: '8%',
+      render: (_, record) => (
+        <span>{record.disappear}%</span>
+      )
+    },
+    {
+      title: '単',
+      dataIndex: 'single',
+      sorter: true,
+      width: '8%',
+      render: (_, record) => (
+        <span>{record.single}%</span>
+      )
+    },
+    {
+      title: '複',
+      dataIndex: 'multiple',
+      sorter: true,
+      width: '8%',
+      render: (_, record) => (
+        <span>{record.multiple}%</span>
+      )
+    },
+];
 
 const RankingPage = () => {
 
-    const [selected, setSelected] = useState(people[0]);
+    const [selected, setSelected] = useState(ranking[0]);
+    const dispatch = useDispatch();
+    const {ranking_data} = useSelector((state:RootState)=>state.rankingReducer);
+    const [data, setData] = useState([]);
+
+    useEffect(()=>{
+      dispatch({
+        type: actions.GETRANKINGDATA,
+        payload: 1
+      });
+    },[]);
+    
+    useEffect(()=>{
+      dispatch({
+        type: actions.GETRANKINGDATA,
+        payload: selected.id 
+      });
+    },[selected]);
+
+    useEffect(()=>{
+      setData(ranking_data);
+    },[ranking_data]);
 
     return (
         <div>
+            
             <Label as='a' color='red' tag>
                 予想ランキング
             </Label>
@@ -66,16 +198,16 @@ const RankingPage = () => {
                                 leaveTo="opacity-0"
                             >
                             <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full lg:w-1/5 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                {people.map((person) => (
+                                {ranking.map((ranking) => (
                                 <Listbox.Option
-                                    key={person.id}
+                                    key={ranking.id}
                                     className={({ active }) =>
                                     classNames(
                                         active ? 'bg-indigo-600 text-white' : 'text-gray-900',
                                         'relative cursor-default select-none py-2 pl-3 pr-9'
                                     )
                                     }
-                                    value={person}
+                                    value={ranking}
                                 >
                                     {({ selected, active }) => (
                                     <>
@@ -83,7 +215,7 @@ const RankingPage = () => {
                                         <span
                                             className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}
                                         >
-                                            {person.name}
+                                            {ranking.name}
                                         </span>
                                         </div>
 
@@ -108,9 +240,10 @@ const RankingPage = () => {
                     )}
                 </Listbox>
 
-                <EditTable />
+                <EditTable columns_data={columns} ranking_data={data}/>
 
             </Segment>
+
         </div>
     )
 }
