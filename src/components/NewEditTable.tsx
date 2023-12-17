@@ -97,6 +97,7 @@ const NewEditTable = ({filteredArray, setRaceResult, no, webRaceResults} : any) 
                                 />
                             </Table.Cell>
                             <Table.Cell>
+
                                 <Input
                                     value={rowData[index].odds}
                                     onChange={(e) => {
@@ -105,18 +106,31 @@ const NewEditTable = ({filteredArray, setRaceResult, no, webRaceResults} : any) 
                                         setRowData(updatedRowData);
                                         setRaceResult([no, updatedRowData]);
                                     }}
-                                />
-                            </Table.Cell>
-                            <Table.Cell>
-                                <Input
-                                    value={rowData[index].single}
-                                    onChange={(e) => {
+                                    onBlur={()=> {
                                         const updatedRowData = [...rowData];
-                                        updatedRowData[index].single = e.target.value;
+                                        if (!index) {
+                                            updatedRowData[index].single = updatedRowData[index].odds * 100;
+                                        }
                                         setRowData(updatedRowData);
                                         setRaceResult([no, updatedRowData]);
                                     }}
                                 />
+
+                            </Table.Cell>
+                            <Table.Cell>
+                                {
+                                    index == 0 && (
+                                        <Input
+                                            value={rowData[index].single}
+                                            onChange={(e) => {
+                                                const updatedRowData = [...rowData];
+                                                updatedRowData[index].single = e.target.value;
+                                                setRowData(updatedRowData);
+                                                setRaceResult([no, updatedRowData]);
+                                            }}
+                                        />
+                                    )
+                                }
                             </Table.Cell>
                             <Table.Cell>
                                 <Input

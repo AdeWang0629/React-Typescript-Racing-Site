@@ -8,15 +8,17 @@ import type { DatePickerProps } from 'antd';
 import { RootState } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import actions from '../../redux/RaceManagement/actions';
+import dayjs from 'dayjs';
 
 const { Text } = Typography;
 
 interface IRegisterModal {
     _open: boolean;
     showModal: any;
+    editData: any;
 }
 
-const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal}) => {
+const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal, editData}) => {
 
     const [open, setOpen] =  useState(_open);
     
@@ -38,7 +40,35 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal}) => {
     useEffect(()=>{
         setOpen(_open);
     },[_open]);
-    
+
+    useEffect(()=>{
+        if (Object.entries(editData).length) {
+            setEventDate(editData.event_date);
+            setEventPlace(editData.event_place);
+            setRaceNumber(editData.race_number);
+            setHourData(editData.hour_data);
+            setMinuteData(editData.minute_data);
+            setRaceName(editData.race_name);
+            setMonthData(editData.month_data);
+
+            const newHorseData =[...horseValues];
+            editData.running_horses.map((item:any, index:any)=> {
+                newHorseData[index] = item.name.split(":")[1];
+                return item;
+            });
+
+            setHorseValues(newHorseData);
+        }else{
+            setEventDate('');
+            setEventPlace('');
+            setRaceNumber('');
+            setHourData('');
+            setMinuteData('');
+            setRaceName('');
+            setMonthData('');
+        }
+    },[editData]);
+
     const [eventDate, setEventDate] = useState<string>('');
     const [eventDateError, setEventError] = useState<boolean>(false);
     const onEventDataChange: DatePickerProps['onChange'] = (date, dateString) => {
@@ -136,39 +166,50 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal}) => {
         }else if (monthData.length) {
             setMonthDataError(false);
         }
+        
+        if (!eventDateError && !eventPlaceError && !raceNumberError &&!hourDataError && !minuteDataError && !raceNameError && !monthDataError) {
+            const filteredArray = horseValues.filter((element) => element !== "");
 
-        const updatedHorseValueErrors = horseValues.map((value) => value === '');
-        setHorseValueErrors(updatedHorseValueErrors);
-
-        let allHorseValuesValid = true;
-
-        horseValues.forEach((value) => {
-            if(value == ''){
-                allHorseValuesValid = false;
+            if (Object.entries(editData).length) {
+                const data = {
+                    event_date: eventDate,
+                    event_place: eventPlace,
+                    race_number: raceNumber,
+                    hour_data: hourData,
+                    minute_data: minuteData,
+                    race_name: raceName,
+                    month_data: monthData,
+                    horse_data: filteredArray
+                }
+        
+                dispatch({
+                    type: actions.UPDATERACESTORE,
+                    payload: {
+                        data: data,
+                        id: editData.id
+                    }
+                });
+            }else{
+                const data = {
+                    event_date: eventDate,
+                    event_place: eventPlace,
+                    race_number: raceNumber,
+                    hour_data: hourData,
+                    minute_data: minuteData,
+                    race_name: raceName,
+                    month_data: monthData,
+                    horse_data: filteredArray
+                }
+        
+                dispatch({
+                    type: actions.NEWRACESTORE,
+                    payload: data
+                });
             }
-        })
-
-        if (allHorseValuesValid) {
-            const data = {
-                event_date: eventDate,
-                event_place: eventPlace,
-                race_number: raceNumber,
-                hour_data: hourData,
-                minute_data: minuteData,
-                race_name: raceName,
-                month_data: monthData,
-                horse_data: horseValues
-            }
-
-            dispatch({
-                type: actions.NEWRACESTORE,
-                payload: data
-            });
-
+    
             setOpen(!open);
             showModal();
         }
-
     };
 
     return (
@@ -181,7 +222,7 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal}) => {
             onCancel={handleCancel}
             footer={(_, { OkBtn, }) => (
                 <div className='pr-6'>
-                    <Button className="w-full" onClick={handleOk}>保&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管</Button>
+                    <Button className="w-full" onClick={handleOk}>保&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存</Button>
                 </div>
             )}
             width={400}
@@ -190,13 +231,18 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal}) => {
             <div className='flex items-center'>
 
                 <Label color='red' horizontal className='w-24'>
-                    保管
+                    開　催　日
                 </Label>
-                <DatePicker className='w-full lg:w-64' onChange={onEventDataChange} id="event_date" name="event_date" />
+
+                {
+                    eventDate.length ? 
+                    <DatePicker className='w-full lg:w-64' onChange={onEventDataChange} id="event_date" name="event_date" value={dayjs(eventDate)} /> : 
+                    <DatePicker className='w-full lg:w-64' onChange={onEventDataChange} id="event_date" name="event_date" />
+                }
                 
             </div>
 
-            { eventDateError && (<Text type="danger" className='p-24'>日付を入力してください。</Text>) }
+            { eventDateError && (<Text type="danger" className='p-20'>日付を入力してください。</Text>) }
 
             <div className='flex items-center pt-5'>
                 
@@ -204,7 +250,7 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal}) => {
                     開催場所
                 </Label>
                 <Select
-                    defaultValue="開催場所を選択してください。"
+                    value={eventPlace ? placesData[Number(eventPlace)] : "開催場所を選択してください。"}
                     className='w-full lg:w-64'
                     onChange={handleEventPlace}
                     options={placesData}
@@ -212,7 +258,7 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal}) => {
 
             </div>
             
-            { eventPlaceError && (<Text type="danger" className='p-24'>開催地を選択してください。</Text>) }
+            { eventPlaceError && (<Text type="danger" className='p-20'>開催地を選択してください。</Text>) }
 
             <div className='flex items-center pt-5'>
                 
@@ -220,7 +266,7 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal}) => {
                     レース番号
                 </Label>
                 <Select
-                    defaultValue="レース番号を選択してください。"
+                    value={raceNumber ? raceNumber : "レース番号を選択してください。"}
                     className='w-full lg:w-64'
                     onChange={handleRaceNumberChange}
                     options={race_number_data}
@@ -228,7 +274,7 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal}) => {
 
             </div>
             
-            { raceNumberError && (<Text type="danger" className='p-24'>レース番号を選択してください。</Text>) }
+            { raceNumberError && (<Text type="danger" className='p-20'>レース番号を選択してください。</Text>) }
             
             <div className='flex items-center pt-5'>
                 
@@ -236,7 +282,7 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal}) => {
                     発走時刻
                 </Label>
                 <Select
-                    defaultValue="13"
+                    value={hourData ? hourData : "13"}
                     className='w-full lg:w-28 mr-2'
                     onChange={handleHourDataChange}
                     options={hour_data}
@@ -247,14 +293,14 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal}) => {
                 </Label>
 
                 <Select
-                    defaultValue="00"
+                    value={minuteData ? minuteData : "00"}
                     className='w-full lg:w-28 ml-2'
                     onChange={handleMinuteDataChange}
                     options={minute_data}
                 />  
             </div>
 
-            { (hourDataError || minuteDataError) && (<Text type="danger" className='p-24'>発走時刻を選択してください。</Text>) }
+            { (hourDataError || minuteDataError) && (<Text type="danger" className='p-20'>発走時刻を選択してください。</Text>) }
 
             <div className='flex items-center pt-5'>
                 
@@ -265,7 +311,7 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal}) => {
 
             </div>
 
-            { raceNameError && (<Text type="danger" className='p-24'>レース名を選択してください。</Text>) }
+            { raceNameError && (<Text type="danger" className='p-20'>レース名を選択してください。</Text>) }
 
             <div className='flex items-center pt-5'>
                 
@@ -273,7 +319,7 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal}) => {
                     集計月
                 </Label>
                 <Select
-                    defaultValue="1"
+                    value={monthData ? monthData : "1"}
                     className='w-full lg:w-64'
                     onChange={handleMonthDataChange}
                     options={month_data}
@@ -281,7 +327,7 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal}) => {
 
             </div>
             
-            { monthDataError && (<Text type="danger" className='p-24'>集計月を選択してください。</Text>) }
+            { monthDataError && (<Text type="danger" className='p-20'>集計月を選択してください。</Text>) }
 
             <div className='flex items-center pt-5'>
                 

@@ -28,7 +28,7 @@ interface TableParams {
 // });
 
 interface IExpandableTable {
-
+    showEditModal: any;
 }
 
 interface RaceDataWithHorses extends RaceDataType {
@@ -37,11 +37,11 @@ interface RaceDataWithHorses extends RaceDataType {
     delete_horses: [];
 }
 
-const ExpandableTable: React.FC<IExpandableTable> = () => {
+const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
     const columns_data: ColumnsType<RaceDataType> = [
         // { title: 'id', dataIndex: 'id', key: 'id', width: '8%', responsive: ['xs'], },
         { title: '開催日', dataIndex: 'event_date', key: 'event_date', width: '20%' },
-        { title: '開催', dataIndex: 'event_place', key: 'event_place', width: '10%',render: (_, record) => (
+        { title: '開催場所', dataIndex: 'event_place', key: 'event_place', width: '10%',render: (_, record) => (
             <div>
                 <Label color='purple' horizontal className={'cursor'} style={{marginRight: 15,}}>
                     {record.places.name}
@@ -54,6 +54,9 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
             <div>
                 <Label color='red' horizontal className={'cursor'} style={{marginRight: 15,}} onClick={() => showModal(record.id)}>
                     削  除
+                </Label>
+                <Label color='teal' horizontal className={'cursor'} style={{marginRight: 15,}} onClick={() => showEditModal(record)}>
+                    編  集
                 </Label>
                 <Badge status="success" text="レース結果変更" />
             </div>
@@ -250,7 +253,7 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
                                         deleteHorseArray.map((_value, index) => (
                                             <div className='pt-3 pb-3' key={index}>
                                                 <Label color='red' horizontal className='w-24'>
-                                                    {index+1}　着
+                                                    {index+1}人気
                                                 </Label>
                                                 <Select
                                                     defaultValue={data.delete_horses.length ? (data.delete_horses[index] as { name: string }).name : filteredArray[0]['label']}

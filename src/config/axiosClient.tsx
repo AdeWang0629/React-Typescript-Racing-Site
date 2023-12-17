@@ -27,6 +27,10 @@ export const postRequest = (URL: string, payload: any) : Promise<any> => {
   return axiosClient.post(`/${URL}`, payload).then(response => response);
 }
 
+export const putRequest = (URL: string, payload: any) : Promise<any> => {
+  return axiosClient.put(`/${URL}/${payload.id}`, payload.data).then(response => response);
+}
+
 export function patchRequest(URL: any, payload: any) {
   return axiosClient.patch(`/${URL}`, payload).then(response => response);
 }

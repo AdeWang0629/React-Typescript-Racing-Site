@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Empty, Select, Badge, Modal } from 'antd';
+import { Table, Empty, Select, Badge, Modal, Typography } from 'antd';
 import type { TablePaginationConfig } from 'antd/es/table';
 import type { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/es/table/interface';
 import { RaceDataType } from '../../interface/RaceDataType';
@@ -12,6 +12,8 @@ import { RootState } from '../../redux/store';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { checkOverlap } from '../../config/global';
+
+const { Text } = Typography;
 
 interface TableParams {
   pagination?: TablePaginationConfig;
@@ -34,7 +36,7 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
     const columns_data: ColumnsType<RaceDataType> = [
         // { title: 'id', dataIndex: 'id', key: 'id', width: '8%', responsive: ['xs'], },
         { title: '開催日', dataIndex: 'event_date', key: 'event_date', width: '20%' },
-        { title: '開催', dataIndex: 'event_place', key: 'event_place', width: '10%',render: (_, record) => (
+        { title: '開催場所', dataIndex: 'event_place', key: 'event_place', width: '10%',render: (_, record) => (
             <div>
                 <Label color='purple' horizontal className={'cursor'} style={{marginRight: 15,}}>
                     {record.places.name}
@@ -83,6 +85,7 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
     const [selectedRecord, setSelectedRecord] = useState<any>(false);
     const [selectedHorsesData, setSelctedHorsesData] = useState([]);
     const [submitHorsesData, setSubmitHorseData] = useState([0,0,0,0,0,0]);
+    const [errorHorsesData, setErrorHorsesData] = useState([false,false,false,false,false,false]);
 
     useEffect(()=>{
         setLoading(true);
@@ -96,7 +99,6 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
     },[]);
 
     const showModal = (record:any) => {
-        console.log(record, "here");
         const now = new Date();
         const [year, month, day] = record.event_date.split('-');
         const targetTime = new Date(year, month-1, day, record.hour_data, record.minute_data);
@@ -177,7 +179,7 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
             setOpen(false);
             setSelectedRecord(false);
             setSubmitHorseData([0,0,0,0,0,0]);
-
+            setErrorHorsesData([false,false,false,false,false,false]);
         }else{
 
             toast.error("予想が被っています。");
@@ -188,6 +190,14 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
     const handleSelectedHorse = (index:number, data:any) => {
         const oldData = [...submitHorsesData];
         if (oldData.includes(data)) {
+            const oldErrorData = errorHorsesData.map((value:any, id:any) => {
+                if (id == index) {
+                    return true;
+                }else{
+                    return false;
+                }
+            });
+            setErrorHorsesData(oldErrorData);
             toast.error("予想が被っています。");
         }else{
             oldData[index] = data;
@@ -233,7 +243,7 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
                     selectedRecord && (
                         <Message
                             info
-                            header={`${selectedRecord.event_date.slice(5)} ${selectedRecord.places.name} ${selectedRecord.race_number} ${selectedRecord.race_name} ${selectedRecord.hour_data} : ${selectedRecord.minute_data} 発走`}
+                            header={`${selectedRecord.event_date.slice(5)} \u00A0 ${selectedRecord.places.name} ${selectedRecord.race_number} \u00A0 ${selectedRecord.race_name} \u00A0 ${selectedRecord.hour_data} : ${selectedRecord.minute_data} 発走`}
                         />
                     )
                 }
@@ -251,7 +261,7 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
                     />
 
                 </div>
-                
+                { errorHorsesData[0] && (<Text type="danger" className='pl-24'>予想が被っています。</Text>) }
                 <div className='flex items-center pt-5'>
                 
                     <Label color='red' horizontal className='w-24'>
@@ -265,7 +275,7 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
                     />
 
                 </div>
-
+                { errorHorsesData[1] && (<Text type="danger" className='pl-24'>予想が被っています。</Text>) }
                 <div className='flex items-center pt-5'>
                 
                     <Label color='red' horizontal className='w-24'>
@@ -279,7 +289,7 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
                     />
 
                 </div>
-
+                { errorHorsesData[2] && (<Text type="danger" className='pl-24'>予想が被っています。</Text>) }
                 <div className='flex items-center pt-5'>
                 
                     <Label color='red' horizontal className='w-24'>
@@ -293,7 +303,7 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
                     />
 
                 </div>
-
+                { errorHorsesData[3] && (<Text type="danger" className='pl-24'>予想が被っています。</Text>) }
                 <div className='flex items-center pt-5'>
                 
                     <Label color='red' horizontal className='w-24'>
@@ -307,7 +317,7 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
                     />
 
                 </div>
-
+                { errorHorsesData[4] && (<Text type="danger" className='pl-24'>予想が被っています。</Text>) }
                 <div className='flex items-center pt-5'>
                 
                     <Label color='red' horizontal className='w-24'>
@@ -319,7 +329,7 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
                         onChange={(value) => handleSelectedHorse(5, value)}
                         options={selectedHorsesData && selectedHorsesData.slice(0,5)}
                     />
-
+                { errorHorsesData[5] && (<Text type="danger" className='pl-24'>予想が被っています。</Text>) }
                 </div>
 
             </Modal>

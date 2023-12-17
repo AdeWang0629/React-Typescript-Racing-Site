@@ -18,10 +18,15 @@ const RaceManagementPage = () => {
 
     const [open, setOpen] = useState(false);
     const [changeDate, setChangeDate] = useState('');
-    
-    const {races} = useSelector((state:RootState) => state.raceReducer);
+    const [editData, setEditData] = useState({});
+
+    const showEditModal = (data:any) => {
+        setEditData(data);
+        setOpen(!open);
+    };
     
     const showModal = () => {
+        setEditData({});
         setOpen(!open);
     };
 
@@ -72,15 +77,16 @@ const RaceManagementPage = () => {
             
                 <Button icon={<SearchOutlined />} className='ml-3' danger onClick={getSpecificRaceData}> 検 索 </Button>
                 
-                <Button icon={<PlusOutlined />} className='w-full lg:w-40 lg:absolute top-5 right-0' danger onClick={showModal}> 新 規 登 録 </Button>
+                <Button icon={<PlusOutlined />} className='w-full sm:w-40 sm:absolute sm:absolute top-5 right-0' danger onClick={showModal}> 新 規 登 録 </Button>
 
             </div>
 
-            <ExpandableTable />
+            <ExpandableTable showEditModal={showEditModal} />
 
             <RegisterModal 
                 _open={open}
                 showModal={showModal}
+                editData={editData}
             />
 
         </Segment>
