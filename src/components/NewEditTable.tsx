@@ -2,6 +2,9 @@ import React from 'react';
 import { Table } from 'semantic-ui-react';
 import { Select, Input, Button } from 'antd';
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const NewEditTable = ({filteredArray, setRaceResult, no, webRaceResults} : any) => {
 
     const [rows, setRows] = React.useState([
@@ -31,7 +34,7 @@ const NewEditTable = ({filteredArray, setRaceResult, no, webRaceResults} : any) 
         setRows([...rows, newRow]);
         setRowData([...rowData, newRowData]);
     };
-    console.log(rowData);
+
     const deleteRow = () => {
         if (rows.length > 0) {
             const updatedRows = [...rows];
@@ -42,11 +45,6 @@ const NewEditTable = ({filteredArray, setRaceResult, no, webRaceResults} : any) 
             updatedRowData.pop(); // 最後の行のデータを削除
             setRowData(updatedRowData);
         }
-    };
-
-
-    const handleChange = (value: string) => {
-        console.log(`selected ${value}`);
     };
 
     return (
@@ -89,9 +87,20 @@ const NewEditTable = ({filteredArray, setRaceResult, no, webRaceResults} : any) 
                                     className='w-full'
                                     onChange={(value) => {
                                         const updatedRowData = [...rowData];
-                                        updatedRowData[index].horse = value;
-                                        setRowData(updatedRowData);
-                                        setRaceResult([no, updatedRowData]);
+                                        let errorRowDataState = true;
+                                        updatedRowData.map((item)=>{
+                                            if (item.horse == value) {
+                                                errorRowDataState = false;
+                                            }
+                                            return item;
+                                        });
+                                        if (errorRowDataState) {
+                                            updatedRowData[index].horse = value;
+                                            setRowData(updatedRowData);
+                                            setRaceResult([no, updatedRowData]);
+                                        }else{
+                                            toast.error("予想が被っています。");
+                                        }
                                     }}
                                     options={filteredArray}
                                 />
@@ -108,7 +117,7 @@ const NewEditTable = ({filteredArray, setRaceResult, no, webRaceResults} : any) 
                                     }}
                                     onBlur={()=> {
                                         const updatedRowData = [...rowData];
-                                        if (!index) {
+                                        if (rowData[index].rank == "1着") {
                                             updatedRowData[index].single = updatedRowData[index].odds * 100;
                                         }
                                         setRowData(updatedRowData);

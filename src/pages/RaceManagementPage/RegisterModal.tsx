@@ -62,10 +62,10 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal, editData}) 
             setEventDate('');
             setEventPlace('');
             setRaceNumber('');
-            setHourData('');
-            setMinuteData('');
+            setHourData('13');
+            setMinuteData('00');
             setRaceName('');
-            setMonthData('');
+            setMonthData('1');
         }
     },[editData]);
 
@@ -125,49 +125,43 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal, editData}) 
     const [horseValueErrors, setHorseValueErrors] = useState(Array(20).fill(false));
 
     const handleOk = () => {
-        if (!eventDate.length) {
-            setEventError(true);
-        }else if (eventDate.length) {
+        if (eventDate.length) {
             setEventError(false);
         }
-
-        if (!eventPlace) {
-            setEventPlaceError(true);
-        }else if (eventPlace) {
+        if (eventPlace) {
             setEventPlaceError(false);
         }
-        
-        if (!raceNumber.length) {
-            setRaceNumberError(true);
-        }else if (raceNumber.length) {
+        if (raceNumber.length) {
             setRaceNumberError(false);
         }
-        
-        if (!hourData.length) {
-            setHourDataError(true);
-        }else if (hourData.length) {
+        if (hourData.length) {
             setHourDataError(false);
         }
-        
-        if (!minuteData.length) {
-            setMinuteDataError(true);
-        }else if (minuteData.length) {
+        if (minuteData.length) {
             setMinuteDataError(false);
         }
-        
-        if (!raceName.length) {
-            setRaceNameError(true);
-        }else if (raceName.length) {
+        if (raceName.length) {
             setRaceNameError(false);
         }
-        
-        if (!monthData.length) {
-            setMonthDataError(true);
-        }else if (monthData.length) {
+        if (monthData.length) {
             setMonthDataError(false);
         }
-        
-        if (!eventDateError && !eventPlaceError && !raceNumberError &&!hourDataError && !minuteDataError && !raceNameError && !monthDataError) {
+
+        if (!eventDate.length) {
+            setEventError(true);
+        }else if (!eventPlace) {
+            setEventPlaceError(true);
+        }else if (!raceNumber.length) {
+            setRaceNumberError(true);
+        }else if (!hourData.length) {
+            setHourDataError(true);
+        }else if (!minuteData.length) {
+            setMinuteDataError(true);
+        }else if (!raceName.length) {
+            setRaceNameError(true);
+        }else if (!monthData.length) {
+            setMonthDataError(true);
+        }else {
             const filteredArray = horseValues.filter((element) => element !== "");
 
             if (Object.entries(editData).length) {
@@ -282,7 +276,7 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal, editData}) 
                     発走時刻
                 </Label>
                 <Select
-                    value={hourData ? hourData : "13"}
+                    value={hourData ? hourData : hourData}
                     className='w-full lg:w-28 mr-2'
                     onChange={handleHourDataChange}
                     options={hour_data}
@@ -293,7 +287,7 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal, editData}) 
                 </Label>
 
                 <Select
-                    value={minuteData ? minuteData : "00"}
+                    value={minuteData ? minuteData : minuteData}
                     className='w-full lg:w-28 ml-2'
                     onChange={handleMinuteDataChange}
                     options={minute_data}
@@ -319,7 +313,7 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal, editData}) 
                     集計月
                 </Label>
                 <Select
-                    value={monthData ? monthData : "1"}
+                    value={monthData ? monthData : monthData}
                     className='w-full lg:w-64'
                     onChange={handleMonthDataChange}
                     options={month_data}

@@ -39,7 +39,7 @@ const columns: ColumnsType<RankingDataType> = [
       sorter: true,
       width: '9%',
       render: (_, record) => (
-        <span>{record.rank}順</span>
+        <span>{record.rank}位</span>
       )
     },
     {

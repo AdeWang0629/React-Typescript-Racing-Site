@@ -77,7 +77,7 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
 
     const dispatch = useDispatch();
     const {races, specific_races} = useSelector((state:RootState) => state.raceReducer);
-    const [deleteHorseArray, setDeleteHorseArray] = useState(['','','','','']);
+    const [deleteHorseArray, setDeleteHorseArray] = useState(['0','0','0','0','0']);
     const [open, setOpen] = useState(false);
     const [deleteId, setDeleteId] = useState(0);
 
@@ -259,6 +259,7 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
                                                         }else{
                                                             updatedRowData = [...deleteHorseArray];
                                                         }
+
                                                         updatedRowData[index] = value;
                                                         setDeleteHorseArray(updatedRowData);
                                                         setChangeDeleteData(newWebRaceResults);
