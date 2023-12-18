@@ -119,7 +119,7 @@ const NewEditTable = ({filteredArray, setRaceResult, no, webRaceResults} : any) 
                             </Table.Cell>
                             <Table.Cell>
                                 {
-                                    index == 0 && (
+                                    rowData[index].rank == "1着" && (
                                         <Input
                                             value={rowData[index].single}
                                             onChange={(e) => {

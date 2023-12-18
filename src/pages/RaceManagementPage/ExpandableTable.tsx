@@ -107,6 +107,7 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
     useEffect(()=>{
         setLoading(false);
         setData(races);
+        console.log(races, "=====================================");
     },[races]);
 
 //   const fetchData = () => {
@@ -152,28 +153,21 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
     
     const [raceResult, setRaceResult] = useState<undefined | any[]>([]);
     const [changeDeleteData, setChangeDeleteData] = useState<undefined | any[]>([]); 
-    console.log(deleteHorseArray, "deleteHorseArray");
+
     const handleSubmit = (id:any) => {
-        console.log("1111111111111111111111111111111111111111111");
-        console.log(raceResult, "raceResult");
-        console.log(changeDeleteData, "changeDeleteData");
         if (!raceResult?.length && changeDeleteData?.length) {
-            console.log("22222222222222222222222222222222222222222222");
             const body = {
                 id: id,
                 race_result: changeDeleteData,
                 delete_horses_data: deleteHorseArray,
             };
-
             dispatch({
                 type: actions.CREATERACERESULT,
                 payload: body
             });
         }else if (id == undefined || raceResult == undefined) {
-            console.log("3333333333333333333333333333333333333333333333333");
             toast.error("レース結果入力の値が正しく入力されていることを確認してください。");
         }else if (id == raceResult[0]) {
-            console.log("44444444444444444444444444444444444444444444444444444");
             const race_result = raceResult[1];
             const body = {
                 id: id,
@@ -259,7 +253,12 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
                                                     defaultValue={data.delete_horses.length ? (data.delete_horses[index] as { name: string }).name : filteredArray[0]['label']}
                                                     className='w-full lg:w-64 lg:ml-10'
                                                     onChange={(value) => {
-                                                        const updatedRowData = [...deleteHorseArray];
+                                                        let updatedRowData: React.SetStateAction<string[]> = [];
+                                                        if (data.delete_horses.length) {
+                                                            updatedRowData = data.delete_horses.map((item:any)=> item.name);
+                                                        }else{
+                                                            updatedRowData = [...deleteHorseArray];
+                                                        }
                                                         updatedRowData[index] = value;
                                                         setDeleteHorseArray(updatedRowData);
                                                         setChangeDeleteData(newWebRaceResults);
@@ -271,7 +270,7 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
                                     }
                                     
                                     <div className='flex justify-center'>
-                                        <Button className="w-full lg:w-60 lg:mr-64" onClick={()=>handleSubmit(record.id)}>保&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管</Button>
+                                        <Button className="w-full lg:w-60 lg:mr-64" onClick={()=>handleSubmit(record.id)}>保&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存</Button>
                                     </div>
                                     
                                 </div>

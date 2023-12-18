@@ -103,7 +103,6 @@ function* initial_specific_races_data() : Generator<any, void, any> {
 
 function* create_race_result({payload}:any) : Generator<any, void, any> {
   try {
-    console.log("========================================================");
     const response = yield call(() => postRequest('racemanagement/create-race-result ', payload));
     toast.success("操作が成功しました。");
     yield put({type: actions.GETRACESDATAOK, payload: response.data.races_data});
@@ -121,7 +120,6 @@ function* create_race_result({payload}:any) : Generator<any, void, any> {
 function* delete_race_data({payload}:any) : Generator<any, void, any> {
   try {
     const response = yield call(() => deleteRequest(`racemanagement`, payload));
-    console.log(response.data)
     toast.success("操作が成功しました。");
     yield put({type: actions.GETRACESDATAOK, payload: response.data.races_data});
   } catch (error) {
