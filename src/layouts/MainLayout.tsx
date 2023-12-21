@@ -9,6 +9,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import actions from "../redux/Auth/actions";
 
 import { Divider } from 'semantic-ui-react'
+import { userImageBaseUrl } from "../config/constants";
 
 type MainLayoutProps = {
   children: ReactNode;
@@ -27,16 +28,9 @@ type NavigationItem = {
   current: boolean;
 }
 
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
-
 const userNavigation = [
   { name: 'マイページ', href: '/mypage' },
-  { name: 'ユーザー情報の変更', href: '/user-information' },
+  { name: 'ユーザー情報の変更', href: '/setting' },
 ]
 
 const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData, currentPageName }) => {
@@ -45,6 +39,8 @@ const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData, current
   const location = useLocation();
   const navigate = useNavigate();
   const [mainNavigation, setMainNavigation] = useState<NavigationItem[]>(mainNavigationData);
+
+  const {userData} = useSelector((state:RootState) => state.authReducer);
 
   useEffect(()=>{
     const oldMainNavigation = mainNavigation.map((item:any) => {
@@ -118,7 +114,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData, current
                         <Menu.Button className="relative flex max-w-xs items-center rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-green-800">
                           <span className="absolute -inset-1.5" />
                           <span className="sr-only">Open user menu</span>
-                          <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                          <img className="h-8 w-8 rounded-full" src={userImageBaseUrl + `${userData.image_url ? userData.image_url : 'DEFAULT.PNG'}`} alt="" />
                         </Menu.Button>
                       </div>
                       <Transition
@@ -199,11 +195,11 @@ const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData, current
               <div className="border-t border-gray-700 pb-3 pt-4">
                 <div className="flex items-center px-5">
                   <div className="flex-shrink-0">
-                    <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                    <img className="h-10 w-10 rounded-full" src={userImageBaseUrl + `${userData.image_url ? userData.image_url : 'DEFAULT.PNG'}`} alt="" />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                    <div className="text-sm font-medium leading-none text-black-400">{user.email}</div>
+                    <div className="text-base font-medium leading-none text-white">{userData.name}</div>
+                    <div className="text-sm font-medium leading-none text-black-400">{userData.email}</div>
                   </div>
                   <button
                     type="button"

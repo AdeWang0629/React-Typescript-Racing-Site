@@ -12,4 +12,5 @@ export interface RankingDataType {
     disappear: string;
     single: string;
     multiple: string;
+    race_managements: any;
 }

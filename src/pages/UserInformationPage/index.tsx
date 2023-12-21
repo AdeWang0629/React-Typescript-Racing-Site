@@ -1,11 +1,10 @@
-import * as React from 'react'
+import React, { FC } from "react";
 
-const UserInformationPage = () => {
+const Index: FC = () => {  
+    
     return (
-        <h1>
-            This is UserInformationPage
-        </h1>
-    )
-}
+        <h1>dfddddddddddddddddddddddddddddd</h1>
+    );
+};
 
-export default UserInformationPage;
+export default Index;

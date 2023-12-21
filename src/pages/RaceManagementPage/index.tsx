@@ -36,9 +36,6 @@ const RaceManagementPage = () => {
         dispatch({
             type: actions.GETPLACES,
         });
-        dispatch({
-            type: actions.INITIALSPECIFICRACEDATA,
-        });
     },[]);
 
     const onChange: DatePickerProps['onChange'] = (date, dateString) => {

@@ -76,7 +76,7 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
     });
 
     const dispatch = useDispatch();
-    const {races, specific_races} = useSelector((state:RootState) => state.raceReducer);
+    const {races} = useSelector((state:RootState) => state.raceReducer);
     const [deleteHorseArray, setDeleteHorseArray] = useState(['0','0','0','0','0']);
     const [open, setOpen] = useState(false);
     const [deleteId, setDeleteId] = useState(0);
@@ -155,6 +155,9 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
     const [changeDeleteData, setChangeDeleteData] = useState<undefined | any[]>([]); 
 
     const handleSubmit = (id:any) => {
+        console.log(raceResult, "raceResult1");
+        console.log(changeDeleteData, "changeDeleteData1");
+        console.log(deleteHorseArray, "deleteHorseArray1");
         if (!raceResult?.length && changeDeleteData?.length) {
             const body = {
                 id: id,
@@ -198,7 +201,7 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
             <Table
                 columns={columns_data}
                 rowKey={(record) => record.id}
-                dataSource={specific_races.length ? specific_races : data}
+                dataSource={data}
                 pagination={tableParams.pagination}
                 loading={loading}
                 onChange={handleTableChange}
@@ -257,7 +260,7 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
                                                         if (data.delete_horses.length) {
                                                             updatedRowData = data.delete_horses.map((item:any)=> item.name);
                                                         }else{
-                                                            updatedRowData = [...deleteHorseArray];
+                                                            updatedRowData = [filteredArray[0]['value'].toString(),filteredArray[0]['value'].toString(),filteredArray[0]['value'].toString(),filteredArray[0]['value'].toString(),filteredArray[0]['value'].toString()];
                                                         }
 
                                                         updatedRowData[index] = value;

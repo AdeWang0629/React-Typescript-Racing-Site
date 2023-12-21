@@ -7,6 +7,7 @@ const actions = {
     LOGOUT_FAILURE: 'LOGOUT_FAILURE',
     SAVE_USERDATA: 'SAVE_USERDATA',
     REGISTER: 'REGISTER',
+    UPDATE_USERDATA: 'UPDATE_USERDATA',
   }
   
   export default actions;  

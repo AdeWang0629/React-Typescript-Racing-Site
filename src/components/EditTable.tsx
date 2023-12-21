@@ -62,7 +62,7 @@ const EditTable: React.FC<IEditTable> = ({columns_data, ranking_data}) => {
         <>
             <Table
                 columns={columns_data}
-                rowKey={(record) => record.rank}
+                rowKey={(record) => record.id}
                 dataSource={data}
                 pagination={tableParams.pagination}
                 loading={loading}

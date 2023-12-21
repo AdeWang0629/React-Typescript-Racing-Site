@@ -3,7 +3,6 @@ import actions from './actions';
 const initialState = {
   places: [],
   races: [],
-  specific_races: [],
 }
 
 const expectedReducer = (state = initialState, action:any) => {
@@ -17,11 +16,6 @@ const expectedReducer = (state = initialState, action:any) => {
       return {
         ...state,
         races: action.payload
-      }
-    case actions.GETSPECIFICRACEDATAOK:
-      return {
-        ...state,
-        specific_races: action.payload
       }
     default:
       return state

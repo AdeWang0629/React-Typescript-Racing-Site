@@ -30,6 +30,23 @@ function* get_ranking_data({payload}:any) : Generator<any, void, any> {
   }
 }
 
+function* get_my_page_user_data({payload}:any) : Generator<any, void, any> {
+  try {
+    const response = yield call(() => getSpecificRequest('mypage', payload));
+    console.log(response.data.my_ranking_data);
+    yield put({type: actions.GETMYPAGEUSERDATAOK, payload: response.data.my_ranking_data});
+  } catch (error) {
+    if((error as any).response.status === 401) {
+    //   toast.error(error.response.data.message);
+    } else if((error as any).response.status === 422) {
+    //   toast.error(error.response.data.message);
+    } else {
+    //   toast.error(error.response.data.message);
+    }
+  }
+}
+
 export default function* rootSaga() {
   yield all([takeLatest(actions.GETRANKINGDATA, get_ranking_data)]);
+  yield all([takeLatest(actions.GETMYPAGEUSERDATA, get_my_page_user_data)]);
 }

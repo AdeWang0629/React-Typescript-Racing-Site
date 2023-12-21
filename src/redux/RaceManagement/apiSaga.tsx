@@ -75,21 +75,7 @@ function* get_specific_races_data({payload}:any) : Generator<any, void, any> {
     
     const response = yield call(() => postRequest('racemanagement/get-specific-race-data', payload));
     
-    yield put({type: actions.GETSPECIFICRACEDATAOK, payload: response.data.races_data});
-  } catch (error) {
-    if((error as any).response.status === 401) {
-    //   toast.error(error.response.data.message);
-    } else if((error as any).response.status === 422) {
-    //   toast.error(error.response.data.message);
-    } else {
-    //   toast.error(error.response.data.message);
-    }
-  }
-}
-
-function* initial_specific_races_data() : Generator<any, void, any> {
-  try {
-    yield put({type: actions.GETSPECIFICRACEDATAOK, payload: []});
+    yield put({type: actions.GETRACESDATAOK, payload: response.data.races_data});
   } catch (error) {
     if((error as any).response.status === 401) {
     //   toast.error(error.response.data.message);
@@ -139,7 +125,6 @@ export default function* rootSaga() {
   yield all([takeLatest(actions.UPDATERACESTORE, update_race_store)]);
   yield all([takeLatest(actions.GETRACESDATA, get_races_data)]);
   yield all([takeLatest(actions.GETSPECIFICRACEDATA, get_specific_races_data)]);
-  yield all([takeLatest(actions.INITIALSPECIFICRACEDATA,initial_specific_races_data)]);
   yield all([takeLatest(actions.CREATERACERESULT, create_race_result)]);
   yield all([takeLatest(actions.DELETERACEDATA, delete_race_data)]);
 }

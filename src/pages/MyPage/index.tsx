@@ -1,166 +1,269 @@
-import React, { ReactElement, FC, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from 'yup';
-import brandImgPath from '../../assets/brand.png';
-import { useDispatch } from "react-redux";
-import actions from "../../redux/Auth/actions";
-import { Button } from "semantic-ui-react";
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { message, Upload } from 'antd';
-import type { UploadChangeParam } from 'antd/es/upload';
-import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
-import { Col, Row } from 'antd';
-const getBase64 = (img: RcFile, callback: (url: string) => void) => {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result as string));
-    reader.readAsDataURL(img);
-};
+import {FC, useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { Label, Segment, List, Button, Table, Message } from 'semantic-ui-react'
 
-const beforeUpload = (file: RcFile) => {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-    if (!isJpgOrPng) {
-      message.error('You can only upload JPG/PNG file!');
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error('Image must smaller than 2MB!');
-    }
-    return isJpgOrPng && isLt2M;
-};
+import actions from '../../redux/Ranking/actions';
+import { RootState } from '../../redux/store';
+import { badgeImage, badgeImageBaseUrl, userImageBaseUrl } from '../../config/constants';
 
-const Index: FC = (): ReactElement => {  
+import { RankingDataType } from "../../interface/RankingDataType";
+import type { ColumnsType } from 'antd/es/table';
+import EditTable from '../../components/EditTable';
+import { useNavigate } from 'react-router-dom';
+
+const MyPage = () => {
+    
+    const { userData } = useSelector((state:RootState)=>state.authReducer);
+    const { my_ranking_data } = useSelector((state:RootState)=>state.rankingReducer);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [values, setValues] = useState({
-        login_id: "",
-        password: ""
-    });
+    useEffect(()=>{
+        dispatch({
+            type: actions.GETMYPAGEUSERDATA,
+            payload: userData.id
+        })
+    },[]);
 
-    const validationSchema = Yup.object({
-        login_id: Yup.string()
-        .required('ユーザーIDを入力してください'),
-        password: Yup.string()
-        .min(5, 'パスワードは8文字以上で入力してください')
-        .required('パスワードを入力してください'),
-    });
+    const columns: ColumnsType<RankingDataType> = [
+        {
+          title: 'レース名',
+          dataIndex: 'rank',
+          sorter: true,
+          width: '9%',
+          render: (_, record) => (
+            <span>{record.race_managements.race_name}</span>
+          )
+        },
+        {
+          title: '◎',
+          dataIndex: 'double_circle',
+          sorter: true,
+          width: '8%',
+          render: (_, record:any) => (
+            <span>
+                {record.double_circle ? <Label circular color={'red'}> 的</Label> : <Label circular color={'blue'}> 不</Label>} {record.double_circles.name}
+            </span>
+          )
+        },
+        {
+          title: '○',
+          dataIndex: 'single_circle',
+          sorter: true,
+          width: '8%',
+          render: (_, record:any) => (
+            <span>{record.single_circle ? <Label circular color={'red'}> 的</Label> : <Label circular color={'blue'}> 不</Label>} {record.single_circles.name}</span>
+          )
+        },
+        {
+          title: '▲',
+          dataIndex: 'triangle',
+          sorter: true,
+          width: '8%',
+          render: (_, record:any) => (
+            <span>{record.triangle ? <Label circular color={'red'}> 的</Label> : <Label circular color={'blue'}> 不</Label>} {record.triangles.name}</span>
+          )
+        },
+        {
+          title: '☆',
+          dataIndex: 'five_star',
+          sorter: true,
+          width: '8%',
+          render: (_, record:any) => (
+            <span>{record.five_star ? <Label circular color={'red'}> 的</Label> : <Label circular color={'blue'}> 不</Label>} {record.five_stars.name}</span>
+          )
+        },
+        {
+          title: '穴',
+          dataIndex: 'hole',
+          sorter: true,
+          width: '8%',
+          render: (_, record:any) => (
+            <span>{record.hole ? <Label circular color={'red'}> 的</Label> : <Label circular color={'blue'}> 不</Label>} {record.holes.name}</span>
+          )
+        },
+        {
+          title: '消',
+          dataIndex: 'disappear',
+          sorter: true,
+          width: '8%',
+          render: (_, record:any) => (
+            <span>{record.disappear ? <Label circular color={'red'}> 的</Label> : <Label circular color={'blue'}> 不</Label>} {record.disappears.name}</span>
+          )
+        },
+    ];
 
-    const handleCancel = () => {
-        console.log("123123123123123123123");
-    };
-    
-    const [loading, setLoading] = useState(false);
-    const [imageUrl, setImageUrl] = useState<string>();
-
-    const handleChange: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {
-        if (info.file.status === 'uploading') {
-            setLoading(true);
-            return;
-        }
-        if (info.file.status === 'done') {
-            // Get this url from response in real world.
-            getBase64(info.file.originFileObj as RcFile, (url) => {
-                setLoading(false);
-                setImageUrl(url);
-            });
-        }
-    };
-
-    const uploadButton = (
-        <div>
-            {loading ? <LoadingOutlined /> : <PlusOutlined />}
-            <div style={{ marginTop: 8 }}>Upload</div>
-        </div>
-    );
-    
     return (
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="flex flex-col md:flex-row pt-6">
+                
+            <div className='w-full lg:w-2/5 lg:p-8 pb-5'>
 
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <Formik
-                initialValues={values}
-                validationSchema={validationSchema}
-                onSubmit={(value, { setSubmitting }) => {
-                    // dispatch({
-                    //   type: actions.LOGIN,
-                    //   payload: {data : value, navigate}
-                    // });
-                    setSubmitting(false);
-                    console.log("1111111111111111111111111111111111111111");
-                }}
-                >
-                {({ isSubmitting }) => (
-                    <Form className="space-y-6">
-                        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                            <div className="grid grid-cols-3 gap-4">
-                                <div></div>
-                                <div>
-                                    <Upload
-                                        name="avatar"
-                                        listType="picture-circle"
-                                        className="avatar-uploader"
-                                        showUploadList={false}
-                                        action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                                        beforeUpload={beforeUpload}
-                                        onChange={handleChange}
-                                    >
-                                        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-                                    </Upload>
-                                </div>
-                            </div>
-                        </div>
+                <Label as='a' color='red' tag>
 
-                        <div>
-                            <label htmlFor="login_id" className="block text-sm font-medium leading-6 text-gray-900">
-                            ユーザーID
-                            </label>
-                            <div className="mt-2">
-                            <Field
-                                id="login_id"
-                                name="login_id"
-                                type="text"
-                                className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            />
-                            <ErrorMessage name="login_id" component="div" className="text-red-500" />
-                            </div>
-                        </div>
+                    基　本　情　報
 
-                        <div>
-                            <div className="flex items-center justify-between">
-                            <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                                パスワード
-                            </label>
-                            <div className="text-sm">
-                                {/* <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                                パスワードをお忘れですか?
-                                </a> */}
-                            </div>
-                            </div>
-                            <div className="mt-2">
-                            <Field
-                                id="password"
-                                name="password"
-                                type="password"
-                                className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            />
-                            <ErrorMessage name="password" component="div" className="text-red-500" />
-                            </div>
-                        </div>
+                </Label>
+            
+                <Segment raised style={{backgroundColor: "#f5deb3"}}>
 
-                        <Button className="w-full" primary type="submit">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;録</Button>
-                            
-                    </Form>
+                <div className="flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8">
+
+                    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+
+                        <img src={userImageBaseUrl + userData.image_url} style={{margin: 'auto'}}></img>
+
+                    </div>
+
+                    <List divided selection>
+                        <List.Item>
+                            <Label color='red' horizontal>
+                                お名前
+                            </Label>
+                            {userData.length !== 0 && userData.name}
+                        </List.Item>
+                        <List.Item>
+                            <Label color='purple' horizontal>
+                                保有ポイント
+                            </Label>
+                            {userData.length !== 0 && userData.user_pt}ポイント
+                        </List.Item>
+                        <List.Item>
+                            <Label color='red' horizontal>
+                                ランク
+                            </Label>
+                            {
+                                my_ranking_data.badge_grade !== undefined && (
+                                    <img src={badgeImageBaseUrl + badgeImage[my_ranking_data.badge_grade]} style={{margin: 'auto'}} width={200}></img>
+                                )
+                            }
+                        </List.Item>
+                    </List>
                     
-                )}
-                </Formik>
-                <div className="pt-5">
-                    <Button className="w-full" secondary onClick={handleCancel}>キ&nbsp;ャ&nbsp;ン&nbsp;セ&nbsp;ル</Button>
+                    <div style={{margin: 'auto'}}>
+                        <Button primary style={{margin: '10px'}} onClick={()=>navigate(-1)}>　戻　る　</Button>
+                        <Button secondary style={{margin: '10px'}} onClick={()=>navigate('/setting')}>　編　集　</Button>
+                    </div>
                 </div>
-            </div>
-        </div>
-    );
-};
 
-export default Index;
+                </Segment>
+
+            </div>
+
+            <div className='w-full lg:w-3/5 lg:p-8'>
+
+                <Label as='a' color='red' tag>
+                    予　想　成　績
+                </Label>
+
+                <Segment raised style={{backgroundColor: "#f5deb3"}}>
+                    <Message
+                        info
+                        header={`　参　加　回　数　：　${my_ranking_data.times !== undefined ? my_ranking_data.times : 0}　回　`}
+                    />
+                    <div className='pb-3'>
+
+                        <Table celled unstackable compact='very'>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell></Table.HeaderCell>
+                                    <Table.HeaderCell>Pt</Table.HeaderCell>
+                                    <Table.HeaderCell>◎</Table.HeaderCell>
+                                    <Table.HeaderCell>〇</Table.HeaderCell>
+                                    <Table.HeaderCell>▲</Table.HeaderCell>
+                                    <Table.HeaderCell>☆</Table.HeaderCell>
+                                    <Table.HeaderCell>穴</Table.HeaderCell>
+                                    <Table.HeaderCell>消</Table.HeaderCell>
+                                    <Table.HeaderCell>単率</Table.HeaderCell>
+                                    <Table.HeaderCell>複率</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                            {
+                                my_ranking_data.length !== 0 && (
+                                    <Table.Body>
+                                        <Table.Row>
+                                            <Table.Cell>月間</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.month_ranking_data.point}pt</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.month_ranking_data.double_circle}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.month_ranking_data.single_circle}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.month_ranking_data.triangle}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.month_ranking_data.five_star}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.month_ranking_data.hole}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.month_ranking_data.disappear}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.month_ranking_data.single}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.month_ranking_data.multiple}%</Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>年間</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.year_ranking_data.point}pt</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.year_ranking_data.double_circle}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.year_ranking_data.single_circle}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.year_ranking_data.triangle}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.year_ranking_data.five_star}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.year_ranking_data.hole}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.year_ranking_data.disappear}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.year_ranking_data.single}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.year_ranking_data.multiple}%</Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>上期</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.point}pt</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.double_circle}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.single_circle}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.triangle}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.five_star}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.hole}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.disappear}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.single}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.double_circle}%</Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>下期</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.point}pt</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.double_circle}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.single_circle}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.triangle}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.five_star}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.hole}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.disappear}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.single}%</Table.Cell>
+                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.double_circle}%</Table.Cell>
+                                        </Table.Row>
+                                    </Table.Body>
+                                )
+                            }
+
+                        </Table>
+                    </div>
+                    
+                    <div className="grid grid-cols-4 gap-4 pb-5">
+
+                        <Label color='violet' horizontal size={'large'}>
+                            単勝の回数 : {my_ranking_data.single_win}回
+                        </Label>
+
+                        <Label color='teal' horizontal size={'large'}>
+                            複勝の回数 : {my_ranking_data.double_win}回
+                        </Label> 
+                        
+                        <Label color='green' horizontal size={'large'}>
+                            馬連の回数 : {my_ranking_data.horse_racing_win}回
+                        </Label>
+
+                        <Label color='brown' horizontal size={'large'}>
+                            ３連複の回数 : {my_ranking_data.triple_racing_win}回
+                        </Label>
+
+                    </div>
+
+                    <EditTable columns_data={columns} ranking_data={my_ranking_data.total_ranking_data}/>
+
+                </Segment>
+
+            </div>
+
+        </div>
+    )
+}
+
+export default MyPage;

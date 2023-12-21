@@ -12,7 +12,7 @@ const ExpectedBattlePage = async(()=>import("../pages/ExpectedBattlePage"));
 const TrainingGamePage = async(()=>import("../pages/TrainingGamePage"));
 const RaceManagementPage = async(()=>import("../pages/RaceManagementPage"));
 const GradeManagementPage = async(()=>import("../pages/GradeManagementPage"));
-const UserInformationPage = async(()=>import("../pages/UserInformationPage"));
+const UserInformationPage = async(()=>import("../pages/MyPage"));
 
 export const routes: Array<IRoute> = [
   //------------------User Management------------------
@@ -84,11 +84,11 @@ export const defaultRoutes: Array<IRoute> = [
     component: MyPage,
   },
   {
-    key: "user-information-route",
+    key: "setting-route",
     title: "/設定",
-    path: "/",
+    path: "/setting",
     enabled: true,
-    component: MyPage,
+    component: Setting,
   },
 ];
 
@@ -108,18 +108,4 @@ export const authRoutes: Array<IRoute> = [
       enabled: true,
       component: SignUp
   },
-  // {
-  //   key: "forgetpassword-route",
-  //   title: "ForgetPassword",
-  //   path: "auth/forgetpassword",
-  //   enabled: true,
-  //   component: ForgetPassword,
-  // },
-  // {
-  //   key: "page404-route",
-  //   title: "Page404",
-  //   path: "*",
-  //   enabled: true,
-  //   component: Page404,
-  // },
 ];
