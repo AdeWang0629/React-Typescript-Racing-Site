@@ -139,7 +139,16 @@ const AppRoutes: FC<IAppRoutesPops> = ({isAuthenticated, role}) => {
               key={route.key}
               path={route.path}
               element={
-                <route.component />
+                isAuthenticated ?
+                (
+                  (route.permission ? route.permission : 0) <=  role ? (
+                    <route.component />
+                  ) : (
+                    <NotFoundPage />
+                  )
+                )
+                : 
+                <RedirectLoginComponent />
               }
             />
           ))}

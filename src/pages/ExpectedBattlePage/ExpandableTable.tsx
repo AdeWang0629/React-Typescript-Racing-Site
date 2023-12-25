@@ -329,9 +329,9 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
                         onChange={(value) => handleSelectedHorse(5, value)}
                         options={selectedHorsesData}
                     />
-                { errorHorsesData[5] && (<Text type="danger" className='pl-24'>予想が被っています。</Text>) }
+               
                 </div>
-
+                { errorHorsesData[5] && (<Text type="danger" className='pl-24'>予想が被っています。</Text>) }
             </Modal>
         </>
 

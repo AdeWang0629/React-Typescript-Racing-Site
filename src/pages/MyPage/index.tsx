@@ -111,7 +111,7 @@ const MyPage = () => {
 
                     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
 
-                        <img src={userImageBaseUrl + userData.image_url} style={{margin: 'auto'}}></img>
+                        <img src={userImageBaseUrl + `${userData.image_url ? userData.image_url : 'DEFAULT.PNG'}`} style={{margin: 'auto'}}></img>
 
                     </div>
 
@@ -161,7 +161,8 @@ const MyPage = () => {
                         info
                         header={`　参　加　回　数　：　${my_ranking_data.times !== undefined ? my_ranking_data.times : 0}　回　`}
                     />
-                    <div className='pb-3'>
+                    
+                    <div className='mb-3 overflow-x-auto'>
 
                         <Table celled unstackable compact='very'>
                             <Table.Header>
