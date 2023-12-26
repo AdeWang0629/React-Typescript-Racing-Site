@@ -11,19 +11,22 @@ const SignUp: FC = (): ReactElement => {
   const dispatch = useDispatch();
 
   const [values, setValues] = useState({
-    name: "",
-    email: "",
-    password: ""
+    user_name: "",
+    user_email: "",
+    password: "",
+    login_id: "",
   });
 
   const validationSchema = Yup.object({
-    name: Yup.string()
+    user_name: Yup.string()
       .required('お名前を入力してください'),
-    email: Yup.string()
+    login_id: Yup.string()
+      .required('識別子を入力してください'),
+    user_email: Yup.string()
       .email('メールアドレスの形式が正しくありません')
       .required('メールアドレスを入力してください'),
     password: Yup.string()
-      .min(8, 'パスワードは8文字以上で入力してください')
+      .min(5, 'パスワードは8文字以上で入力してください')
       .required('パスワードを入力してください'),
   });
 
@@ -57,32 +60,47 @@ const SignUp: FC = (): ReactElement => {
             {({ isSubmitting }) => (
               <Form className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label htmlFor="user_name" className="block text-sm font-medium leading-6 text-gray-900">
                     お名前
                   </label>
                   <div className="mt-2">
                     <Field
-                      id="name"
-                      name="name"
+                      id="user_name"
+                      name="user_name"
                       type="text"
                       className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
-                    <ErrorMessage name="name" component="div" className="text-red-500" />
+                    <ErrorMessage name="user_name" component="div" className="text-red-500" />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label htmlFor="login_id" className="block text-sm font-medium leading-6 text-gray-900">
+                    ユーザーID
+                  </label>
+                  <div className="mt-2">
+                    <Field
+                      id="login_id"
+                      name="login_id"
+                      type="text"
+                      className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                    <ErrorMessage name="login_id" component="div" className="text-red-500" />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="user_email" className="block text-sm font-medium leading-6 text-gray-900">
                     メール アドレス
                   </label>
                   <div className="mt-2">
                     <Field
-                      id="email"
-                      name="email"
+                      id="user_email"
+                      name="user_email"
                       type="email"
                       className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
-                    <ErrorMessage name="email" component="div" className="text-red-500" />
+                    <ErrorMessage name="user_email" component="div" className="text-red-500" />
                   </div>
                 </div>
 

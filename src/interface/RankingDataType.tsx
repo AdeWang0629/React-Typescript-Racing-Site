@@ -1,4 +1,5 @@
 export interface RankingDataType {
+    user_role: any;
     id: number;
     rank: string;
     name: string;

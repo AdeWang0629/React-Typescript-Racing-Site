@@ -12,7 +12,7 @@ const ExpectedBattlePage = async(()=>import("../pages/ExpectedBattlePage"));
 const TrainingGamePage = async(()=>import("../pages/TrainingGamePage"));
 const RaceManagementPage = async(()=>import("../pages/RaceManagementPage"));
 const GradeManagementPage = async(()=>import("../pages/GradeManagementPage"));
-const UserInformationPage = async(()=>import("../pages/MyPage"));
+const UserInformationPage = async(()=>import("../pages/UserInformationPage"));
 
 export const routes: Array<IRoute> = [
   //------------------User Management------------------

@@ -11,11 +11,16 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-import brandImgPath from '../../assets/596630.jpg';
+import brandImgPathFirst from '../../assets/1.png';
+import brandImgPathSecond from '../../assets/2.jpg';
+import brandImgPathThird from '../../assets/3.jpg';
 
 import { Label, Segment, Message } from 'semantic-ui-react'
 
-import TableWithLabel from '../../components/TableWithLabel';
+import TableWithLabelFirst from '../../components/TableWithLabelFirst';
+import TableWithLabelScond from '../../components/TableWithLabelScond';
+import TableWithLabelThird from '../../components/TableWithLabelThird';
+import TableWithLabelForth from '../../components/TableWithLabelForth';
 
 const HomePage = () => {
     return (
@@ -32,22 +37,19 @@ const HomePage = () => {
                 scrollbar={{ draggable: true }}
                 onSwiper={(swiper : any) => console.log(swiper)}
                 onSlideChange={() => console.log('slide change')}
+                style={{ height: "85vh" }}
             >
 
                 <SwiperSlide>
-                    <img src={brandImgPath} />
+                    <img src={brandImgPathFirst} style={{ height: "100%", width: "100%" }} />
                 </SwiperSlide>
 
                 <SwiperSlide>
-                    <img src={brandImgPath} />
+                    <img src={brandImgPathSecond} style={{ height: "100%", width: "100%"}} />
                 </SwiperSlide>
 
                 <SwiperSlide>
-                    <img src={brandImgPath} />
-                </SwiperSlide>
-                
-                <SwiperSlide>
-                    <img src={brandImgPath} />
+                    <img src={brandImgPathThird} style={{ height: "100%", width: "100%" }} />
                 </SwiperSlide>
 
             </Swiper>
@@ -69,39 +71,39 @@ const HomePage = () => {
                         </div>
 
 
-                        <TableWithLabel content={"1月度ランキング"}/>
-                        <TableWithLabel content={"上半期ランキング"}/>
-                        <TableWithLabel content={"年間ランキング"}/>
+                        <TableWithLabelFirst content={"1月度ランキング"}/>
+                        <TableWithLabelFirst content={"上半期ランキング"}/>
+                        <TableWithLabelFirst content={"年間ランキング"}/>
 
                         <div className='pb-3'>
                             <Label as='a' color='olive' ribbon>
-                                予選バトル ポイント獲得数TOP3
+                                予選バトル ◎的中率TOP3
                             </Label>
                         </div>
 
-                        <TableWithLabel content={"1月度ランキング"}/>
-                        <TableWithLabel content={"上半期ランキング"}/>
-                        <TableWithLabel content={"年間ランキング"}/>
+                        <TableWithLabelScond content={"1月度ランキング"}/>
+                        <TableWithLabelScond content={"上半期ランキング"}/>
+                        <TableWithLabelScond content={"年間ランキング"}/>
 
                         <div className='pb-3'>
                             <Label as='a' color='violet' ribbon>
-                                予選バトル ポイント獲得数TOP3
+                                予選バトル 単勝回収率TOP3
                             </Label>
                         </div>
                         
-                        <TableWithLabel content={"1月度ランキング"}/>
-                        <TableWithLabel content={"上半期ランキング"}/>
-                        <TableWithLabel content={"年間ランキング"}/>
+                        <TableWithLabelThird content={"1月度ランキング"}/>
+                        <TableWithLabelThird content={"上半期ランキング"}/>
+                        <TableWithLabelThird content={"年間ランキング"}/>
 
                         <div className='pb-3'>
                             <Label as='a' color='pink' ribbon>
-                                予選バトル ポイント獲得数TOP3
+                                予選バトル 複勝回収率TOP3
                             </Label>
                         </div>
 
-                        <TableWithLabel content={"1月度ランキング"}/>
-                        <TableWithLabel content={"上半期ランキング"}/>
-                        <TableWithLabel content={"年間ランキング"}/>
+                        <TableWithLabelForth content={"1月度ランキング"}/>
+                        <TableWithLabelForth content={"上半期ランキング"}/>
+                        <TableWithLabelForth content={"年間ランキング"}/>
 
                     </Segment>
 
@@ -120,53 +122,42 @@ const HomePage = () => {
                             header='2022.01.05 予想バトル【新ルール】導入！'
                         />
                         
-                        <p>
-                            2020/6/26にシステムを更新しました。
-                            恐れ入りますが、後ほどメールにて新しいアカウント情報をお送りしますので、 再度ログインをお願いします。
-                            その際、shpgrp.comからのドメイン解除をお願いします。
-                            メールは送信専用アカウントから送信されますので、迷惑フォルダに入っている 可能性もありますので、来ていないと思われた方は迷惑フォルダを確認してみてください。
-                            お手数をお掛けしますが、よろしくお願いします。
-                        </p>
-                        
-                        <Message
-                            info
-                            header='2021.01.22 新システム【ロト３】導入！'
-                        />
-                        
-                        <p>
-                            2020/6/26にシステムを更新しました。
-                            恐れ入りますが、後ほどメールにて新しいアカウント情報をお送りしますので、 再度ログインをお願いします。
-                            その際、shpgrp.comからのドメイン解除をお願いします。
-                            メールは送信専用アカウントから送信されますので、迷惑フォルダに入っている 可能性もありますので、来ていないと思われた方は迷惑フォルダを確認してみてください。
-                            お手数をお掛けしますが、よろしくお願いします。
-                        </p>
+                        <p style={{fontSize: '1.2em'}}>
+                            ■「単勝」ボーナス <br></br>
+                            　・◎が１着以内に来た場合：200Pt <br></br> <br></br>
 
-                        <Message
-                            info
-                            header='2020.06.26 システムバージョンUPのお知らせ'
-                        />
-                        
-                        <p>
-                            2020/6/26にシステムを更新しました。
-                            恐れ入りますが、後ほどメールにて新しいアカウント情報をお送りしますので、 再度ログインをお願いします。
-                            その際、shpgrp.comからのドメイン解除をお願いします。
-                            メールは送信専用アカウントから送信されますので、迷惑フォルダに入っている 可能性もありますので、来ていないと思われた方は迷惑フォルダを確認してみてください。
-                            お手数をお掛けしますが、よろしくお願いします。
-                        </p>
+                            ■「複勝」ボーナスの追加 <br></br>
+                            　・◎が３着以内に来た場合：100Pt <br></br> <br></br>
 
-                        <Message
-                            info
-                            header='2020.06.26 システムバージョンUPのお知らせ'
-                        />
-                        
-                        <p>
-                            2020/6/26にシステムを更新しました。
-                            恐れ入りますが、後ほどメールにて新しいアカウント情報をお送りしますので、 再度ログインをお願いします。
-                            その際、shpgrp.comからのドメイン解除をお願いします。
-                            メールは送信専用アカウントから送信されますので、迷惑フォルダに入っている 可能性もありますので、来ていないと思われた方は迷惑フォルダを確認してみてください。
-                            お手数をお掛けしますが、よろしくお願いします。
-                        </p>
+                            ■「馬連」ボーナスの変更・追加 <br></br>
+                            　・◎－〇が順不同で２着以内に来た場合：200Pt <br></br>
+                            　・◎－▲が順不同で２着以内に来た場合：150Pt <br></br>
+                            　・◎－☆が順不同で２着以内に来た場合：100Pt <br></br>
+                            　・◎－穴が順不同で２着以内に来た場合： 50Pt <br></br> <br></br>
 
+                            ■「３連複」ボーナスの変更・追加 <br></br>
+                            　・◎－〇－▲の３頭が順不同で３着以内に来た場合：500Pt <br></br>
+                            　・◎－〇－☆の３頭が順不同で３着以内に来た場合：450Pt <br></br>
+                            　・◎－〇－穴の３頭が順不同で３着以内に来た場合：400Pt <br></br>
+                            　・◎－▲－☆の３頭が順不同で３着以内に来た場合：350Pt <br></br>
+                            　・◎－▲－穴の３頭が順不同で３着以内に来た場合：300Pt <br></br>
+                            　・◎－☆－穴の３頭が順不同で３着以内に来た場合：250Pt <br></br>
+                            　・〇－▲－☆の３頭が順不同で３着以内に来た場合：200Pt <br></br>
+                            　・〇－▲－穴の３頭が順不同で３着以内に来た場合：150Pt <br></br>
+                            　・〇－☆－穴の３頭が順不同で３着以内に来た場合：100Pt <br></br>
+                            　・▲－☆－穴の３頭が順不同で３着以内に来た場合： 50Pt <br></br> <br></br>
+
+                            ■「消」ポイントの変更 <br></br>
+                            　・１番人気を消して、４着以降の場合：50Pt <br></br>
+                            　・２番人気を消して、４着以降の場合：40Pt <br></br>
+                            　・３番人気を消して、４着以降の場合：30Pt <br></br>
+                            　・４番人気を消して、４着以降の場合：20Pt <br></br>
+                            　・５番人気を消して、４着以降の場合：10Pt <br></br> <br></br>
+ 
+                            ■「穴」馬の重複は禁止 <br></br>
+                            　・(旧)ルールでは、「穴」馬のみ重複が可能でしたが、(新)ルールでは不可とします。 <br></br>
+                        </p>
+                        
                     </Segment>
 
                 </div>

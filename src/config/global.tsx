@@ -60,6 +60,16 @@ export const race_number_data = [
     { value: '12R', label: '12R' },
 ]
 
+export const user_role_data = [
+  { value: '0', label: 'ユーザー' },
+  { value: '1', label: '管理者' },
+  { value: '2', label: 'スーパーユーザー' },
+]
+
+export const color_data = [
+  "red", "blue","tear"
+]
+
 export const checkOverlap = (array: any) => {
   
     for (let i = 0; i < array.length; i++) {

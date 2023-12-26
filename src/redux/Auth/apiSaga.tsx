@@ -52,7 +52,7 @@ function* register({payload} : any) : Generator<any, void, any> {
       data: data
     };
 
-    const response = yield call(() => postRequest('register', data));
+    const response = yield call(() => postRequest('user-register', newData));
 
     const jwtToken = response.data.token;
     const userData = response.data.user;
