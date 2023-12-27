@@ -102,7 +102,7 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
         const now = new Date();
         const [year, month, day] = record.event_date.split('-');
         const targetTime = new Date(year, month-1, day, record.hour_data, record.minute_data);
-        const updateTime = new Date(targetTime.getTime() + 2 * 60000);
+        const updateTime = new Date(targetTime.getTime() - 2 * 60000);
 
         if (now > updateTime) {
 
@@ -200,6 +200,7 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
             setErrorHorsesData(oldErrorData);
             toast.error("予想が被っています。");
         }else{
+            setErrorHorsesData([false,false,false,false,false,false]);
             oldData[index] = data;
             setSubmitHorseData(oldData);
         }

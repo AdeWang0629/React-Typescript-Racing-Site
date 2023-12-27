@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const NewEditTable = ({filteredArray, setRaceResult, no, webRaceResults} : any) => {
-
+    
     const [rows, setRows] = React.useState([
         { id: 1 },
         { id: 2 },
@@ -30,7 +30,7 @@ const NewEditTable = ({filteredArray, setRaceResult, no, webRaceResults} : any) 
             });
             setRows(updatedRows);
             setRowData(updatedRows.map((value, index) => ({
-                rank: `${index + 1}着`,
+                rank: webRaceResults[index]?.rank,
                 horse:  webRaceResults.length ? webRaceResults[index]?.horse : filteredArray[0]['value'],
                 odds: webRaceResults.length ? webRaceResults[index]?.odds : '',
                 single: webRaceResults.length ? webRaceResults[index]?.single : '',
@@ -38,7 +38,7 @@ const NewEditTable = ({filteredArray, setRaceResult, no, webRaceResults} : any) 
             })));
         }
     },[webRaceResults]);
-    console.log(rowData, "rows11111111111111111111111111111111");
+
     const addRow = () => {
         const newRow = { id: rows.length + 1 };
         const newRowData = {
