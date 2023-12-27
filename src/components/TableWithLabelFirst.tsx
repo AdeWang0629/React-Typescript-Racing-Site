@@ -23,7 +23,7 @@ const TableWithLabel : FC<ITableWithLabel> = ({content}) => {
                             <Table.HeaderCell>順位</Table.HeaderCell>
                             <Table.HeaderCell>名前</Table.HeaderCell>
                             <Table.HeaderCell>参加数</Table.HeaderCell>
-                            <Table.HeaderCell>ﾎﾟｲﾝﾄ</Table.HeaderCell>
+                            <Table.HeaderCell>ポイント</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
 

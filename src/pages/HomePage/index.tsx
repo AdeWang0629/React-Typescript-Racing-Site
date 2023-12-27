@@ -71,17 +71,17 @@ const HomePage = () => {
                         </div>
 
 
-                        <TableWithLabelFirst content={"1月度ランキング"}/>
+                        <TableWithLabelFirst content={"1月ランキング"}/>
                         <TableWithLabelFirst content={"上半期ランキング"}/>
                         <TableWithLabelFirst content={"年間ランキング"}/>
 
                         <div className='pb-3'>
-                            <Label as='a' color='olive' ribbon>
+                            <Label as='a' color='blue' ribbon>
                                 予選バトル ◎的中率TOP3
                             </Label>
                         </div>
 
-                        <TableWithLabelScond content={"1月度ランキング"}/>
+                        <TableWithLabelScond content={"1月ランキング"}/>
                         <TableWithLabelScond content={"上半期ランキング"}/>
                         <TableWithLabelScond content={"年間ランキング"}/>
 
@@ -91,7 +91,7 @@ const HomePage = () => {
                             </Label>
                         </div>
                         
-                        <TableWithLabelThird content={"1月度ランキング"}/>
+                        <TableWithLabelThird content={"1月ランキング"}/>
                         <TableWithLabelThird content={"上半期ランキング"}/>
                         <TableWithLabelThird content={"年間ランキング"}/>
 
@@ -101,7 +101,7 @@ const HomePage = () => {
                             </Label>
                         </div>
 
-                        <TableWithLabelForth content={"1月度ランキング"}/>
+                        <TableWithLabelForth content={"1月ランキング"}/>
                         <TableWithLabelForth content={"上半期ランキング"}/>
                         <TableWithLabelForth content={"年間ランキング"}/>
 

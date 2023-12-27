@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table } from 'semantic-ui-react';
 import { Select, Input, Button } from 'antd';
 
@@ -20,7 +20,25 @@ const NewEditTable = ({filteredArray, setRaceResult, no, webRaceResults} : any) 
         single: webRaceResults.length ? webRaceResults[index]?.single : '',
         double: webRaceResults.length ? webRaceResults[index]?.double : '',
     })));
-    
+
+    useEffect(()=>{
+        if (webRaceResults.length) {
+            let updatedRows: { id: any; }[] = [];
+            webRaceResults.map((element:any, index:any) => {
+                updatedRows.push({ id: index+1});
+                return element;
+            });
+            setRows(updatedRows);
+            setRowData(updatedRows.map((value, index) => ({
+                rank: `${index + 1}着`,
+                horse:  webRaceResults.length ? webRaceResults[index]?.horse : filteredArray[0]['value'],
+                odds: webRaceResults.length ? webRaceResults[index]?.odds : '',
+                single: webRaceResults.length ? webRaceResults[index]?.single : '',
+                double: webRaceResults.length ? webRaceResults[index]?.double : '',
+            })));
+        }
+    },[webRaceResults]);
+    console.log(rowData, "rows11111111111111111111111111111111");
     const addRow = () => {
         const newRow = { id: rows.length + 1 };
         const newRowData = {

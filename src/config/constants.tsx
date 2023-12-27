@@ -1,5 +1,8 @@
+// export const serverUrl = window.location.origin + "/";
+export const serverUrl = "http://localhost/";
+
 const constants = {
-    HOST_URL: 'http://192.168.144.23/api/',
+    HOST_URL: serverUrl + 'api/',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -8,9 +11,9 @@ const constants = {
   
 export default constants;  
 
-export const userImageBaseUrl = "http://192.168.144.23/img/user_images/"
+export const userImageBaseUrl = serverUrl + "img/user_images/"
 
-export const badgeImageBaseUrl = 'http://192.168.144.23/img/badge_images/'
+export const badgeImageBaseUrl = serverUrl + 'img/badge_images/'
 
 export const badgeImage = [
   'title_wg.png',

@@ -36,37 +36,35 @@ const columns: ColumnsType<RankingDataType> = [
     {
       title: '順位',
       dataIndex: 'rank',
-      sorter: true,
+      sorter: (a:any, b:any) => a.rank - b.rank,
       width: '9%',
       render: (_, record) => (
         <span>{record.rank}位</span>
-      )
+      ),
+      
     },
     {
       title: '名前',
       dataIndex: 'name',
-      filters: [
-        { text: 'Male', value: 'male' },
-        { text: 'Female', value: 'female' },
-      ],
+      sorter: (a:any, b:any) => a.name - b.name,
       width: '9%',
     },
     {
       title: '回数',
       dataIndex: 'number_times',
-      sorter: true,
+      sorter: (a:any, b:any) => a.number_times - b.number_times,
       width: '9%',
     },
     {
       title: 'pt',
       dataIndex: 'point',
-      sorter: true,
+      sorter: (a:any, b:any) => a.point - b.point,
       width: '9%',
     },
     {
       title: '◎',
       dataIndex: 'double_circle',
-      sorter: true,
+      sorter: (a:any, b:any) => a.double_circle - b.double_circle,
       width: '8%',
       render: (_, record) => (
         <span>{record.double_circle}%</span>
@@ -75,7 +73,7 @@ const columns: ColumnsType<RankingDataType> = [
     {
       title: '○',
       dataIndex: 'single_circle',
-      sorter: true,
+      sorter: (a:any, b:any) => a.single_circle - b.single_circle,
       width: '8%',
       render: (_, record) => (
         <span>{record.single_circle}%</span>
@@ -84,7 +82,7 @@ const columns: ColumnsType<RankingDataType> = [
     {
       title: '▲',
       dataIndex: 'triangle',
-      sorter: true,
+      sorter: (a:any, b:any) => a.triangle - b.triangle,
       width: '8%',
       render: (_, record) => (
         <span>{record.triangle}%</span>
@@ -93,7 +91,7 @@ const columns: ColumnsType<RankingDataType> = [
     {
       title: '☆',
       dataIndex: 'five_star',
-      sorter: true,
+      sorter: (a:any, b:any) => a.five_star - b.five_star,
       width: '8%',
       render: (_, record) => (
         <span>{record.five_star}%</span>
@@ -102,7 +100,7 @@ const columns: ColumnsType<RankingDataType> = [
     {
       title: '穴',
       dataIndex: 'hole',
-      sorter: true,
+      sorter: (a:any, b:any) => a.hole - b.hole,
       width: '8%',
       render: (_, record) => (
         <span>{record.hole}%</span>
@@ -111,7 +109,7 @@ const columns: ColumnsType<RankingDataType> = [
     {
       title: '消',
       dataIndex: 'disappear',
-      sorter: true,
+      sorter: (a:any, b:any) => a.disappear - b.disappear,
       width: '8%',
       render: (_, record) => (
         <span>{record.disappear}%</span>
@@ -120,7 +118,7 @@ const columns: ColumnsType<RankingDataType> = [
     {
       title: '単',
       dataIndex: 'single',
-      sorter: true,
+      sorter: (a:any, b:any) => a.single - b.single,
       width: '8%',
       render: (_, record) => (
         <span>{record.single}%</span>
@@ -129,7 +127,7 @@ const columns: ColumnsType<RankingDataType> = [
     {
       title: '複',
       dataIndex: 'multiple',
-      sorter: true,
+      sorter: (a:any, b:any) => a.multiple - b.multiple,
       width: '8%',
       render: (_, record) => (
         <span>{record.multiple}%</span>

@@ -235,14 +235,12 @@ const MainLayout: FC<MainLayoutProps> = ({ children, mainNavigationData, current
 
       <header>
       
-        <div className="mx-auto max-w-screen-2xl px-4 pt-2 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">{currentPageName}</h1>
+        <div className="mx-auto max-w-screen-2xl px-4 pt-8 sm:px-6 lg:px-8">
+
         </div>
 
       </header>
-
-      <Divider />
-
+    
       <main>
 
         <div className="mx-auto max-w-screen-2xl pt-2 sm:px-6 lg:px-8">

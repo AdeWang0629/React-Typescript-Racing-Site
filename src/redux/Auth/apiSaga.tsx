@@ -105,8 +105,7 @@ function* update_userdata({payload} : any) : Generator<any, void, any> {
     });
 
     const response = yield call(() => postRequest(`user/${userId}`, formData));
-    console.log(response.data.token);
-    console.log(response.data.user);
+
     toast.success("正常に変更されました。");
 
     const jwtToken = response.data.token;
@@ -123,9 +122,9 @@ function* update_userdata({payload} : any) : Generator<any, void, any> {
     navigate(-1);
   } catch (error:any) {
     if(error.response.status === 400) {
-      toast.error(error.response.data.message);
+      toast.error("以前のパスワードが一致しません。");
     } else if(error.response.status === 404) {
-      toast.error(error.response.data.message);
+      toast.error("ユーザーが見つかりません。");
     } else {
       toast.error(error.response.data.message);
     }

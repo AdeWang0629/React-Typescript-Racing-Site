@@ -107,31 +107,7 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
     useEffect(()=>{
         setLoading(false);
         setData(races);
-        console.log(races, "=====================================");
     },[races]);
-
-//   const fetchData = () => {
-//     setLoading(true);
-//     fetch(`https://randomuser.me/api?${qs.stringify(getRandomuserParams(tableParams))}`)
-//       .then((res) => res.json())
-//       .then(({ results }) => {
-//         setData(results);
-//         setLoading(false);
-//         setTableParams({
-//           ...tableParams,
-//           pagination: {
-//             ...tableParams.pagination,
-//             total: 200,
-//             // 200 is mock data, you should read it from server
-//             // total: data.totalCount,
-//           },
-//         });
-//       });
-//   };
-
-//   useEffect(() => {
-//     fetchData();
-//   }, [JSON.stringify(tableParams)]);
 
     const handleTableChange = (
         pagination: TablePaginationConfig,
@@ -195,7 +171,7 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
             payload: deleteId
         });
     };
-
+    console.log(deleteHorseArray, "deleteHorseArray");
     return (
         <>
             <Table
@@ -256,14 +232,15 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
                                                     defaultValue={data.delete_horses.length ? (data.delete_horses[index] as { name: string }).name : filteredArray[0]['label']}
                                                     className='w-full lg:w-64 lg:ml-10'
                                                     onChange={(value) => {
-                                                        let updatedRowData: React.SetStateAction<string[]> = [];
-                                                        if (data.delete_horses.length) {
-                                                            updatedRowData = data.delete_horses.map((item:any)=> item.name);
-                                                        }else{
-                                                            updatedRowData = [filteredArray[0]['value'].toString(),filteredArray[0]['value'].toString(),filteredArray[0]['value'].toString(),filteredArray[0]['value'].toString(),filteredArray[0]['value'].toString()];
-                                                        }
-
+                                                        // let updatedRowData: React.SetStateAction<string[]> = [];
+                                                        // if (data.delete_horses.length) {
+                                                        //     updatedRowData = data.delete_horses.map((item:any)=> item.name);
+                                                        // }else{
+                                                        //     updatedRowData = [filteredArray[0]['value'].toString(),filteredArray[0]['value'].toString(),filteredArray[0]['value'].toString(),filteredArray[0]['value'].toString(),filteredArray[0]['value'].toString()];
+                                                        // }
+                                                        const updatedRowData = [...deleteHorseArray];
                                                         updatedRowData[index] = value;
+                                                        console.log(updatedRowData, "updatedRowData");
                                                         setDeleteHorseArray(updatedRowData);
                                                         setChangeDeleteData(newWebRaceResults);
                                                     }}

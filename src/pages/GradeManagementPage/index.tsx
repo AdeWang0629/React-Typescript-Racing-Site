@@ -49,7 +49,7 @@ const GrandeManagementPage = () => {
       {
         title: 'レース名',
         dataIndex: 'rank',
-        sorter: true,
+        sorter: (a:any, b:any) => a.rank - b.rank,
         width: '9%',
         render: (_, record) => (
           <span>{record.race_managements.race_name}</span>
@@ -58,7 +58,7 @@ const GrandeManagementPage = () => {
       {
         title: '◎',
         dataIndex: 'double_circle',
-        sorter: true,
+        sorter: (a:any, b:any) => a.double_circle - b.double_circle,
         width: '8%',
         render: (_, record:any) => (
           <span>
@@ -69,7 +69,7 @@ const GrandeManagementPage = () => {
       {
         title: '○',
         dataIndex: 'single_circle',
-        sorter: true,
+        sorter: (a:any, b:any) => a.single_circle - b.single_circle,
         width: '8%',
         render: (_, record:any) => (
           <span>{record.single_circle ? <Label circular color={'red'}> 的</Label> : <Label circular color={'blue'}> 不</Label>} {record.single_circles.name}</span>
@@ -78,7 +78,7 @@ const GrandeManagementPage = () => {
       {
         title: '▲',
         dataIndex: 'triangle',
-        sorter: true,
+        sorter: (a:any, b:any) => a.triangle - b.triangle,
         width: '8%',
         render: (_, record:any) => (
           <span>{record.triangle ? <Label circular color={'red'}> 的</Label> : <Label circular color={'blue'}> 不</Label>} {record.triangles.name}</span>
@@ -87,7 +87,7 @@ const GrandeManagementPage = () => {
       {
         title: '☆',
         dataIndex: 'five_star',
-        sorter: true,
+        sorter: (a:any, b:any) => a.five_star - b.five_star,
         width: '8%',
         render: (_, record:any) => (
           <span>{record.five_star ? <Label circular color={'red'}> 的</Label> : <Label circular color={'blue'}> 不</Label>} {record.five_stars.name}</span>
@@ -96,7 +96,7 @@ const GrandeManagementPage = () => {
       {
         title: '穴',
         dataIndex: 'hole',
-        sorter: true,
+        sorter: (a:any, b:any) => a.hole - b.hole,
         width: '8%',
         render: (_, record:any) => (
           <span>{record.hole ? <Label circular color={'red'}> 的</Label> : <Label circular color={'blue'}> 不</Label>} {record.holes.name}</span>
@@ -105,7 +105,7 @@ const GrandeManagementPage = () => {
       {
         title: '消',
         dataIndex: 'disappear',
-        sorter: true,
+        sorter: (a:any, b:any) => a.disappear - b.disappear,
         width: '8%',
         render: (_, record:any) => (
           <span>{record.disappear ? <Label circular color={'red'}> 的</Label> : <Label circular color={'blue'}> 不</Label>} {record.disappears.name}</span>
