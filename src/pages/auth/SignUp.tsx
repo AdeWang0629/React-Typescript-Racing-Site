@@ -11,15 +11,15 @@ const SignUp: FC = (): ReactElement => {
   const dispatch = useDispatch();
 
   const [values, setValues] = useState({
-    user_name: "",
+    // user_name: "",
     user_email: "",
     password: "",
     login_id: "",
   });
 
   const validationSchema = Yup.object({
-    user_name: Yup.string()
-      .required('お名前を入力してください'),
+    // user_name: Yup.string()
+    //   .required('お名前を入力してください'),
     login_id: Yup.string()
       .required('識別子を入力してください'),
     user_email: Yup.string()
@@ -41,7 +41,7 @@ const SignUp: FC = (): ReactElement => {
             alt="Your Company"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            アカウントに登録する
+            アカウントを登録する
           </h2>
         </div>
 
@@ -59,7 +59,7 @@ const SignUp: FC = (): ReactElement => {
           >
             {({ isSubmitting }) => (
               <Form className="space-y-6">
-                <div>
+                {/* <div>
                   <label htmlFor="user_name" className="block text-sm font-medium leading-6 text-gray-900">
                     お名前
                   </label>
@@ -72,11 +72,11 @@ const SignUp: FC = (): ReactElement => {
                     />
                     <ErrorMessage name="user_name" component="div" className="text-red-500" />
                   </div>
-                </div>
+                </div> */}
 
                 <div>
                   <label htmlFor="login_id" className="block text-sm font-medium leading-6 text-gray-900">
-                    ユーザーID
+                    アカウント名
                   </label>
                   <div className="mt-2">
                     <Field
@@ -136,7 +136,7 @@ const SignUp: FC = (): ReactElement => {
 
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            会員ではありませすか?{' '}
+            アカウントをお持ちの方{' '}
             <Link to={"/signin"} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               ロ グ イ ン
             </Link>

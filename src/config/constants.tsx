@@ -1,5 +1,5 @@
 // export const serverUrl = "window.location.origin" + "/";
-// export const serverUrl = "http://localhost:8001/";
+// export const serverUrl = "http://localhost/";
 export const serverUrl = "https://boc-kid.sakura.ne.jp/";
 
 const constants = {

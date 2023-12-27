@@ -33,7 +33,7 @@ const SignIn: FC = (): ReactElement => {
           alt="Your Company"
         />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          アカウントにサインインする
+          アカウントにログインする
         </h2>
       </div>
 
@@ -94,7 +94,7 @@ const SignIn: FC = (): ReactElement => {
                   disabled={isSubmitting}
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  サインイン
+                  ログイン
                 </button>
               </div>
             </Form>
@@ -103,7 +103,7 @@ const SignIn: FC = (): ReactElement => {
 
 
         <p className="mt-10 text-center text-sm text-gray-500">
-          会員ではありませんか?{' '}
+          アカウントをお持ちではない方{' '}
           <Link to={"/signup"} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               無 料 登 録
           </Link>
