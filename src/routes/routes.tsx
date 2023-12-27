@@ -70,7 +70,7 @@ interface IAppRoutesPops {
 }
 
 const AppRoutes: FC<IAppRoutesPops> = ({isAuthenticated, role}) => {
-  console.log("HERE222222222222222222222222");
+  
   const location = useLocation();
   const [mainNavigationData, setMainNavigationData] = useState<NavigationItem[]>([]);
   const [currentPageName, setCurrentPageName] = useState("");

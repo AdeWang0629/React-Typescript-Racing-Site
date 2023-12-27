@@ -56,7 +56,6 @@ const SettingPage: FC = (): ReactElement => {
                 initialValues={values}
                 validationSchema={validationSchema}
                 onSubmit={(value, { setSubmitting }) => {
-                    console.log(value);
                     dispatch({
                       type: actions.UPDATE_USERDATA,
                       payload: {data : value, userId: userData.id, navigate}

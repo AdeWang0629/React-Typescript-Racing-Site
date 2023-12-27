@@ -43,7 +43,6 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal, editData}) 
 
     useEffect(()=>{
         if (Object.entries(editData).length) {
-            console.log(editData, "=====++++++++++++++++++++++++++++++");
             setEventDate(editData.event_date);
             setEventPlace(editData.event_place);
             setRaceNumber(editData.race_number);
@@ -206,9 +205,7 @@ const RegisterModal : React.FC<IRegisterModal> = ({_open, showModal, editData}) 
             showModal();
         }
     };
-    console.log(places, "================================");
-    console.log(eventPlace, "---------------------------");
-    console.log(places[eventPlace], "---------------------------");
+
     return (
 
         <Modal

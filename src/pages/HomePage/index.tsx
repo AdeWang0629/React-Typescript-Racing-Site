@@ -35,8 +35,8 @@ const HomePage = () => {
                 autoplay={{delay: 3000}}
                 pagination={{ clickable: true }}
                 scrollbar={{ draggable: true }}
-                onSwiper={(swiper : any) => console.log(swiper)}
-                onSlideChange={() => console.log('slide change')}
+                // onSwiper={(swiper : any) => console.log(swiper)}
+                // onSlideChange={() => console.log('slide change')}
                 style={{ height: "85vh" }}
             >
 

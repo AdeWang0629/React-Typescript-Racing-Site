@@ -131,9 +131,6 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
     const [changeDeleteData, setChangeDeleteData] = useState<undefined | any[]>([]); 
 
     const handleSubmit = (id:any) => {
-        console.log(raceResult, "raceResult1");
-        console.log(changeDeleteData, "changeDeleteData1");
-        console.log(deleteHorseArray, "deleteHorseArray1");
         if (!raceResult?.length && changeDeleteData?.length) {
             const body = {
                 id: id,
@@ -171,7 +168,7 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
             payload: deleteId
         });
     };
-    console.log(deleteHorseArray, "deleteHorseArray");
+
     return (
         <>
             <Table
@@ -240,7 +237,6 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
                                                         // }
                                                         const updatedRowData = [...deleteHorseArray];
                                                         updatedRowData[index] = value;
-                                                        console.log(updatedRowData, "updatedRowData");
                                                         setDeleteHorseArray(updatedRowData);
                                                         setChangeDeleteData(newWebRaceResults);
                                                     }}

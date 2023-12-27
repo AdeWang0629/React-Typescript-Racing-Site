@@ -9,7 +9,7 @@ import { setToken, setUserToken, removeToken, removeUserToken } from '../../rout
 function* login({payload} : any) : Generator<any, void, any> {
   try {
     const { data, navigate } = payload;
-    console.log(data);
+
     const newData = {
       data: data
     };

@@ -13,7 +13,6 @@ function* get_ranking_data({payload}:any) : Generator<any, void, any> {
       response = yield call(() => getRequest('ranking/get_year'));
     }else if (payload == 3) {
       response = yield call(() => getRequest('ranking/first_half_year'));
-      console.log(response.data.ranking_data);
     }else if (payload == 4) {
       response = yield call(() => getRequest('ranking/second_half_year'));
     }
@@ -33,7 +32,7 @@ function* get_ranking_data({payload}:any) : Generator<any, void, any> {
 function* get_my_page_user_data({payload}:any) : Generator<any, void, any> {
   try {
     const response = yield call(() => getSpecificRequest('mypage', payload));
-    console.log(response.data.my_ranking_data);
+    
     yield put({type: actions.GETMYPAGEUSERDATAOK, payload: response.data.my_ranking_data});
   } catch (error) {
     if((error as any).response.status === 401) {
