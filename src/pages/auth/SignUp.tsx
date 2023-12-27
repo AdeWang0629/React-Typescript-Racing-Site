@@ -138,7 +138,7 @@ const SignUp: FC = (): ReactElement => {
           <p className="mt-10 text-center text-sm text-gray-500">
             アカウントをお持ちの方{' '}
             <Link to={"/signin"} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-              ロ グ イ ン
+              ロ　グ　イ　ン
             </Link>
           </p>
         </div>
