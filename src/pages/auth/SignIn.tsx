@@ -103,9 +103,9 @@ const SignIn: FC = (): ReactElement => {
 
 
         <p className="mt-10 text-center text-sm text-gray-500">
-          アカウントをお持ちではない方{' '}
-          <Link to={"/signup"} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-            新　規　登　録
+          アカウントをお持ちではない方
+          <Link to={"/signup"} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 ml-3">
+            新規登録
           </Link>
         </p>
       </div>

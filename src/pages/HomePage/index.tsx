@@ -37,7 +37,7 @@ const HomePage = () => {
                 scrollbar={{ draggable: true }}
                 // onSwiper={(swiper : any) => console.log(swiper)}
                 // onSlideChange={() => console.log('slide change')}
-                style={{ height: "85vh" }}
+                className='lg:h-[60rem] md:h-[40rem] sm:h-[30rem] h-[20rem] w-full'
             >
 
                 <SwiperSlide>
