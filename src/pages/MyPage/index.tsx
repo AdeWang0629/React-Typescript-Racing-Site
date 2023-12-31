@@ -120,7 +120,7 @@ const MyPage = () => {
                             <Label color='red' horizontal>
                                 お名前
                             </Label>
-                            {userData.length !== 0 && userData.name}
+                            {userData.length !== 0 && userData.login_id}
                         </List.Item>
                         <List.Item>
                             <Label color='purple' horizontal>

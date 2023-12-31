@@ -26,7 +26,7 @@ const SignUp: FC = (): ReactElement => {
       .email('メールアドレスの形式が正しくありません')
       .required('メールアドレスを入力してください'),
     password: Yup.string()
-      .min(5, 'パスワードは8文字以上で入力してください')
+      .min(5, 'パスワードは5文字以上で入力してください')
       .required('パスワードを入力してください'),
   });
 

@@ -12,15 +12,16 @@ const SignIn: FC = (): ReactElement => {
   const navigate = useNavigate();
 
   const [values, setValues] = useState({
-    login_id: "",
+    user_email: "",
     password: ""
   });
 
   const validationSchema = Yup.object({
-    login_id: Yup.string()
-      .required('ユーザーIDを入力してください'),
+    user_email: Yup.string()
+      .email('メールアドレスの形式が正しくありません')
+      .required('メールアドレスを入力してください'),
     password: Yup.string()
-      .min(5, 'パスワードは8文字以上で入力してください')
+      .min(5, 'パスワードは58文字以上で入力してください')
       .required('パスワードを入力してください'),
   });
 
@@ -52,17 +53,17 @@ const SignIn: FC = (): ReactElement => {
           {({ isSubmitting }) => (
             <Form className="space-y-6">
               <div>
-                <label htmlFor="login_id" className="block text-sm font-medium leading-6 text-gray-900">
-                  ユーザーID
+                <label htmlFor="user_email" className="block text-sm font-medium leading-6 text-gray-900">
+                  メール アドレス
                 </label>
                 <div className="mt-2">
                   <Field
-                    id="login_id"
-                    name="login_id"
-                    type="text"
+                    id="user_email"
+                    name="user_email"
+                    type="email"
                     className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
-                  <ErrorMessage name="login_id" component="div" className="text-red-500" />
+                  <ErrorMessage name="user_email" component="div" className="text-red-500" />
                 </div>
               </div>
 

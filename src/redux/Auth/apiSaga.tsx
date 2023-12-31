@@ -31,14 +31,13 @@ function* login({payload} : any) : Generator<any, void, any> {
     }else{
       toast.error("ユーザーIDとパスワードが正しくありません。");
     }
-  } catch (error) {
-    yield put({type: actions.LOGIN_FAILURE});
+  } catch (error:any) {
     if((error as any).response.status === 401) {
-    //   toast.error(error.response.data.message);
+      toast.error(error.response.data.message);
     } else if((error as any).response.status === 422) {
-    //   toast.error(error.response.data.message);
+      toast.error(error.response.data.message);
     } else {
-    //   toast.error(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   }
 }
