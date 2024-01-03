@@ -138,6 +138,8 @@ const GrandeManagementPage = () => {
           return item;
       });
       setGradeOrder(grade_number);
+      setWord("");
+      setFilterList([]);
     }
 
     return (
