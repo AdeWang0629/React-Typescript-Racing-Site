@@ -66,7 +66,7 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
     ];
 
     
-    const [data, setData] = useState<RaceDataType[]>();
+    const [data, setData] = useState<RaceDataType[]>([]);
     const [loading, setLoading] = useState(false);
     const [tableParams, setTableParams] = useState<TableParams>({
         pagination: {
@@ -129,13 +129,40 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
     
     const [raceResult, setRaceResult] = useState<undefined | any[]>([]);
     const [changeDeleteData, setChangeDeleteData] = useState<undefined | any[]>([]); 
-
+    console.log(data, "======================================");
     const handleSubmit = (id:any) => {
+        let newData : any;
+        data.forEach(element => {
+            if (element.id == id) {
+                newData = element;
+            }
+        });
+
+        const filteredRunningHorsesArray = newData.running_horses.map((horse:any) => {
+            return horse.id;
+        });
+
+        let newDeleteHorseArray;
+        if (newData['delete_horses'].length) {
+            newDeleteHorseArray = deleteHorseArray.map((item, index)=> {
+                if (item == '0') {
+                    console.log(newData['delete_horses'][index]);
+                    return filteredRunningHorsesArray[0];
+                }else{
+                    return item;
+                }
+            })
+        }else{
+            newDeleteHorseArray = deleteHorseArray.map((item)=> {
+                return filteredRunningHorsesArray[0];
+            })
+        }
+
         if (!raceResult?.length && changeDeleteData?.length) {
             const body = {
                 id: id,
                 race_result: changeDeleteData,
-                delete_horses_data: deleteHorseArray,
+                delete_horses_data: newDeleteHorseArray,
             };
             dispatch({
                 type: actions.CREATERACERESULT,
@@ -148,7 +175,7 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
             const body = {
                 id: id,
                 race_result: race_result,
-                delete_horses_data: deleteHorseArray,
+                delete_horses_data: newDeleteHorseArray,
             };
 
             dispatch({

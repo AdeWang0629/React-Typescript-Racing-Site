@@ -7,4 +7,5 @@ export interface RaceDataType {
     action: string;
     places: any;
     race_state: number;
+    delete_horses:  any;
 }
