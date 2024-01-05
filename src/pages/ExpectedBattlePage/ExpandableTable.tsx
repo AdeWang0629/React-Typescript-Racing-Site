@@ -139,8 +139,9 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
     };
 
     useEffect(()=>{
+        setLoading(false);
         if (expected_race_data.length) {
-            setLoading(false);
+            // setLoading(false);
             setData(expected_race_data);
         }      
     },[expected_race_data]);

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, {useEffect} from 'react'
 
 // import Swiper core and required modules
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
@@ -21,8 +21,35 @@ import TableWithLabelFirst from '../../components/TableWithLabelFirst';
 import TableWithLabelScond from '../../components/TableWithLabelScond';
 import TableWithLabelThird from '../../components/TableWithLabelThird';
 import TableWithLabelForth from '../../components/TableWithLabelForth';
+import { useDispatch, useSelector } from 'react-redux';
+import actions from '../../redux/Home/actions';
+import { RootState } from '../../redux/store';
 
-const HomePage = () => {
+const HomePage : React.FC = () => {
+
+    const dispatch = useDispatch();
+
+    const {
+        point_month_data,
+        double_circle_month_data,
+        single_month_data,
+        multiple_month_data,
+        point_first_half_year_data,
+        double_circle_first_half_year_data,
+        single_first_half_year_data,
+        multiple_first_half_year_data,
+        point_year_data,
+        double_circle_year_data,
+        single_year_data,
+        multiple_year_data,
+    } = useSelector((state:RootState) => state.homeReducer);
+
+    useEffect(()=>{
+        dispatch({
+            type: actions.GETHOMEDATA
+        })    
+    },[]);
+
     return (
         <div>
 
@@ -71,9 +98,9 @@ const HomePage = () => {
                         </div>
 
 
-                        <TableWithLabelFirst content={"1月ランキング"}/>
-                        <TableWithLabelFirst content={"上半期ランキング"}/>
-                        <TableWithLabelFirst content={"年間ランキング"}/>
+                        <TableWithLabelFirst content={"1月ランキング"} data={point_month_data}/>
+                        <TableWithLabelFirst content={"上半期ランキング"} data={point_first_half_year_data}/>
+                        <TableWithLabelFirst content={"年間ランキング"} data={point_year_data}/>
 
                         <div className='pb-3'>
                             <Label as='a' color='blue' ribbon>
@@ -81,9 +108,9 @@ const HomePage = () => {
                             </Label>
                         </div>
 
-                        <TableWithLabelScond content={"1月ランキング"}/>
-                        <TableWithLabelScond content={"上半期ランキング"}/>
-                        <TableWithLabelScond content={"年間ランキング"}/>
+                        <TableWithLabelScond content={"1月ランキング"} data={double_circle_month_data}/>
+                        <TableWithLabelScond content={"上半期ランキング"} data={double_circle_first_half_year_data}/>
+                        <TableWithLabelScond content={"年間ランキング"} data={double_circle_year_data}/>
 
                         <div className='pb-3'>
                             <Label as='a' color='violet' ribbon>
@@ -91,9 +118,9 @@ const HomePage = () => {
                             </Label>
                         </div>
                         
-                        <TableWithLabelThird content={"1月ランキング"}/>
-                        <TableWithLabelThird content={"上半期ランキング"}/>
-                        <TableWithLabelThird content={"年間ランキング"}/>
+                        <TableWithLabelThird content={"1月ランキング"} data={single_month_data}/>
+                        <TableWithLabelThird content={"上半期ランキング"} data={single_first_half_year_data}/>
+                        <TableWithLabelThird content={"年間ランキング"} data={single_year_data}/>
 
                         <div className='pb-3'>
                             <Label as='a' color='pink' ribbon>
@@ -101,9 +128,9 @@ const HomePage = () => {
                             </Label>
                         </div>
 
-                        <TableWithLabelForth content={"1月ランキング"}/>
-                        <TableWithLabelForth content={"上半期ランキング"}/>
-                        <TableWithLabelForth content={"年間ランキング"}/>
+                        <TableWithLabelForth content={"1月ランキング"} data={multiple_month_data}/>
+                        <TableWithLabelForth content={"上半期ランキング"} data={multiple_first_half_year_data}/>
+                        <TableWithLabelForth content={"年間ランキング"} data={multiple_year_data}/>
 
                     </Segment>
 

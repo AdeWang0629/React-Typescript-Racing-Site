@@ -4,6 +4,7 @@ import expectedReducer from './ExpectedBattle/reducer';
 import rankingReducer from './Ranking/reducer';
 import gradeReducer from './GradeManagement/reducer';
 import userReducer from './UserManagement/reducer';
+import homeReducer from './Home/reducer';
 
 //Include all the reducer to combine and provide to configure store.
 export default {
@@ -13,4 +14,5 @@ export default {
     rankingReducer,
     gradeReducer,
     userReducer,
+    homeReducer,
 }

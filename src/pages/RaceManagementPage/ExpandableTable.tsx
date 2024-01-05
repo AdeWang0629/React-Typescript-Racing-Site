@@ -129,7 +129,7 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
     
     const [raceResult, setRaceResult] = useState<undefined | any[]>([]);
     const [changeDeleteData, setChangeDeleteData] = useState<undefined | any[]>([]); 
-    console.log(data, "======================================");
+
     const handleSubmit = (id:any) => {
         let newData : any;
         data.forEach(element => {
@@ -144,18 +144,21 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
 
         let newDeleteHorseArray;
         if (newData['delete_horses'].length) {
-            newDeleteHorseArray = deleteHorseArray.map((item, index)=> {
+            newDeleteHorseArray = newData['delete_horses'].map((item: any, index: number)=> {
+                if (deleteHorseArray[index] == '0') {
+                    return item.name;
+                }else{
+                    return deleteHorseArray[index];
+                }
+            });
+        }else{
+            newDeleteHorseArray = deleteHorseArray.map((item)=> {
                 if (item == '0') {
-                    console.log(newData['delete_horses'][index]);
                     return filteredRunningHorsesArray[0];
                 }else{
                     return item;
                 }
-            })
-        }else{
-            newDeleteHorseArray = deleteHorseArray.map((item)=> {
-                return filteredRunningHorsesArray[0];
-            })
+            });
         }
 
         if (!raceResult?.length && changeDeleteData?.length) {

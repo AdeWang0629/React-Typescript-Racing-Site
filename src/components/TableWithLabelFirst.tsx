@@ -4,9 +4,10 @@ import { Label, Table } from 'semantic-ui-react'
 
 interface ITableWithLabel {
     content: String;
+    data: any;
 }
 
-const TableWithLabel : FC<ITableWithLabel> = ({content}) => {
+const TableWithLabel : FC<ITableWithLabel> = ({content, data}) => {
     return (
 
         <div>
@@ -30,21 +31,21 @@ const TableWithLabel : FC<ITableWithLabel> = ({content}) => {
                     <Table.Body>
                         <Table.Row>
                             <Table.Cell>１位</Table.Cell>
-                            <Table.Cell></Table.Cell>
-                            <Table.Cell></Table.Cell>
-                            <Table.Cell></Table.Cell>
+                            <Table.Cell>{data[0] && data[0]['name']}</Table.Cell>
+                            <Table.Cell>{data[0] && data[0]['number_times']}</Table.Cell>
+                            <Table.Cell>{data[0] && data[0]['point']}</Table.Cell>
                         </Table.Row>
                         <Table.Row error>
-                            <Table.Cell>２位</Table.Cell>
-                            <Table.Cell></Table.Cell>
-                            <Table.Cell></Table.Cell>
-                            <Table.Cell></Table.Cell>
+                            <Table.Cell>{data[1] ? (data[1]['point'] == data[0]['point'] ? '１位' : '２位') : '２位'}</Table.Cell>
+                            <Table.Cell>{data[1] && data[1]['name']}</Table.Cell>
+                            <Table.Cell>{data[1] && data[1]['number_times']}</Table.Cell>
+                            <Table.Cell>{data[1] && data[1]['point']}</Table.Cell>
                         </Table.Row>
                         <Table.Row>
-                            <Table.Cell>３位</Table.Cell>
-                            <Table.Cell></Table.Cell>
-                            <Table.Cell></Table.Cell>
-                            <Table.Cell></Table.Cell>
+                            <Table.Cell>{data[2] ? (data[2]['point'] == data[0]['point'] ? '１位' : (data[2]['point'] == data[1]['point'] ? '２位' : '３位')) : '３位'}</Table.Cell>
+                            <Table.Cell>{data[2] && data[2]['name']}</Table.Cell>
+                            <Table.Cell>{data[2] && data[2]['number_times']}</Table.Cell>
+                            <Table.Cell>{data[2] && data[2]['point']}</Table.Cell>
                         </Table.Row>
                     </Table.Body>
                 </Table>

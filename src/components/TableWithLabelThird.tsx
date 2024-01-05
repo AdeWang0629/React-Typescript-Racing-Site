@@ -4,9 +4,10 @@ import { Label, Table } from 'semantic-ui-react'
 
 interface ITableWithLabel {
     content: String;
+    data: any;
 }
 
-const TableWithLabel : FC<ITableWithLabel> = ({content}) => {
+const TableWithLabel : FC<ITableWithLabel> = ({content, data}) => {
     return (
 
         <div>
@@ -30,21 +31,21 @@ const TableWithLabel : FC<ITableWithLabel> = ({content}) => {
                     <Table.Body>
                         <Table.Row>
                             <Table.Cell>１位</Table.Cell>
-                            <Table.Cell></Table.Cell>
-                            <Table.Cell></Table.Cell>
-                            <Table.Cell></Table.Cell>
+                            <Table.Cell>{data[0] && data[0]['name']}</Table.Cell>
+                            <Table.Cell>{data[0] && data[0]['number_times']}</Table.Cell>
+                            <Table.Cell>{data[0] && data[0]['single']}</Table.Cell>
                         </Table.Row>
                         <Table.Row error>
-                            <Table.Cell>２位</Table.Cell>
-                            <Table.Cell></Table.Cell>
-                            <Table.Cell></Table.Cell>
-                            <Table.Cell></Table.Cell>
+                            <Table.Cell>{data[1] ? (data[1]['single'] == data[0]['single'] ? '１位' : '２位') : '２位'}</Table.Cell>
+                            <Table.Cell>{data[1] && data[1]['name']}</Table.Cell>
+                            <Table.Cell>{data[1] && data[1]['number_times']}</Table.Cell>
+                            <Table.Cell>{data[1] && data[1]['single']}</Table.Cell>
                         </Table.Row>
                         <Table.Row>
-                            <Table.Cell>３位</Table.Cell>
-                            <Table.Cell></Table.Cell>
-                            <Table.Cell></Table.Cell>
-                            <Table.Cell></Table.Cell>
+                            <Table.Cell>{data[2] ? (data[2]['single'] == data[0]['single'] ? '１位' : (data[2]['single'] == data[1]['single'] ? '２位' : '３位')) : '３位'}</Table.Cell>
+                            <Table.Cell>{data[2] && data[2]['name']}</Table.Cell>
+                            <Table.Cell>{data[2] && data[2]['number_times']}</Table.Cell>
+                            <Table.Cell>{data[2] && data[2]['single']}</Table.Cell>
                         </Table.Row>
                     </Table.Body>
                 </Table>
