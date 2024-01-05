@@ -22,7 +22,7 @@ const GrandeManagementPage = () => {
     const [myRankingData, setMyRankingData] = useState<any>([]);
     const [word, setWord] = useState('');
     const [filterList, setFilterList] = useState([]);
-
+    console.log(myRankingData, "myRankingData");
     useEffect(()=>{
       dispatch({
           type: actions.GETGRADEMANAGEMENTDATA,
@@ -267,7 +267,7 @@ const GrandeManagementPage = () => {
                                     <Table.Cell>{myRankingData.first_half_year_ranking_data.hole}%</Table.Cell>
                                     <Table.Cell>{myRankingData.first_half_year_ranking_data.disappear}%</Table.Cell>
                                     <Table.Cell>{myRankingData.first_half_year_ranking_data.single}%</Table.Cell>
-                                    <Table.Cell>{myRankingData.first_half_year_ranking_data.double_circle}%</Table.Cell>
+                                    <Table.Cell>{myRankingData.first_half_year_ranking_data.multiple}%</Table.Cell>
                                 </Table.Row>
                                 <Table.Row>
                                     <Table.Cell>下期</Table.Cell>
@@ -279,7 +279,7 @@ const GrandeManagementPage = () => {
                                     <Table.Cell>{myRankingData.second_half_year_ranking_data.hole}%</Table.Cell>
                                     <Table.Cell>{myRankingData.second_half_year_ranking_data.disappear}%</Table.Cell>
                                     <Table.Cell>{myRankingData.second_half_year_ranking_data.single}%</Table.Cell>
-                                    <Table.Cell>{myRankingData.second_half_year_ranking_data.double_circle}%</Table.Cell>
+                                    <Table.Cell>{myRankingData.second_half_year_ranking_data.multiple}%</Table.Cell>
                                 </Table.Row>
                             </Table.Body>
                         )
