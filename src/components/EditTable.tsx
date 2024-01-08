@@ -43,20 +43,18 @@ const EditTable: React.FC<IEditTable> = ({columns_data, ranking_data}) => {
         pagination: TablePaginationConfig,
         filters: Record<string, FilterValue | null> ,
         sorter: SorterResult<RankingDataType> | SorterResult<RankingDataType>[],
-        extra: TableCurrentDataSource<RankingDataType>
     ) => {
         setTableParams({
-        pagination,
-        filters,
-        ...sorter,
+            pagination,
+            filters,
+            ...sorter,
         });
     
         // `dataSource` is useless since `pageSize` changed
         if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-        setData([]);
+            setData([ranking_data]);
         }
     };
-  
 
     return (
         <>

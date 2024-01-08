@@ -46,7 +46,7 @@ const columns: ColumnsType<RankingDataType> = [
     {
       title: '名前',
       dataIndex: 'name',
-      sorter: (a:any, b:any) => a.name - b.name,
+      sorter: (a:any, b:any) => a.name.localeCompare(b.name),
       width: '9%',
     },
     {
@@ -58,7 +58,7 @@ const columns: ColumnsType<RankingDataType> = [
     {
       title: 'pt',
       dataIndex: 'point',
-      sorter: (a:any, b:any) => a.point - b.point,
+      sorter: (a:any, b:any) => parseInt(b.point.replace(',', '')) - parseInt(a.point.replace(',', '')),
       width: '9%',
     },
     {
