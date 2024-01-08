@@ -136,7 +136,7 @@ const NewEditTable = ({filteredArray, setRaceResult, no, webRaceResults} : any) 
                                     onBlur={()=> {
                                         const updatedRowData = [...rowData];
                                         if (rowData[index].rank == "1着") {
-                                            updatedRowData[index].single = updatedRowData[index].odds * 100;
+                                            updatedRowData[index].single = Math.round(updatedRowData[index].odds * 100);
                                         }
                                         setRowData(updatedRowData);
                                         setRaceResult([no, updatedRowData]);

@@ -95,174 +95,180 @@ const MyPage = () => {
     ];
 
     return (
-        <div className="flex flex-col md:flex-row pt-6">
-                
-            <div className='w-full lg:w-2/5 lg:p-8 pb-5'>
+        <div className='pt-6'>
 
-                <Label as='a' color='red' tag>
-
-                    基　本　情　報
-
-                </Label>
+            <div className='lg:pl-8 pb-2'>
+                <Button primary  onClick={()=>navigate(-1)}>　戻　る　</Button>
+            </div>
             
-                <Segment raised style={{backgroundColor: "#f5deb3"}}>
-
-                <div className="flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8">
-
-                    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-
-                        <img src={userImageBaseUrl + `${userData.image_url ? userData.image_url : 'DEFAULT.PNG'}`} style={{margin: 'auto'}}></img>
-
-                    </div>
-
-                    <List divided selection>
-                        <List.Item>
-                            <Label color='red' horizontal>
-                                お名前
-                            </Label>
-                            {userData.length !== 0 && userData.login_id}
-                        </List.Item>
-                        <List.Item>
-                            <Label color='purple' horizontal>
-                                保有ポイント
-                            </Label>
-                            {userData.length !== 0 && userData.user_pt}ポイント
-                        </List.Item>
-                        <List.Item>
-                            <Label color='red' horizontal>
-                                ランク
-                            </Label>
-                            {
-                                my_ranking_data.badge_grade !== undefined && (
-                                    <img src={badgeImageBaseUrl + badgeImage[my_ranking_data.badge_grade]} style={{margin: 'auto'}} width={200}></img>
-                                )
-                            }
-                        </List.Item>
-                    </List>
+            <div className="flex flex-col md:flex-row">
                     
-                    <div style={{margin: 'auto'}}>
-                        <Button primary style={{margin: '10px'}} onClick={()=>navigate(-1)}>　戻　る　</Button>
-                        <Button secondary style={{margin: '10px'}} onClick={()=>navigate('/setting')}>　編　集　</Button>
+                <div className='w-full lg:w-2/5 lg:p-8 pb-5'>
+
+                    <Label as='a' color='red' tag>
+
+                        基　本　情　報
+
+                    </Label>
+                
+                    <Segment raised style={{backgroundColor: "#f5deb3"}}>
+
+                    <div className="flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8">
+
+                        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+
+                            <img src={userImageBaseUrl + `${userData.image_url ? userData.image_url : 'DEFAULT.PNG'}`} style={{margin: 'auto'}}></img>
+
+                        </div>
+
+                        <List divided selection>
+                            <List.Item>
+                                <Label color='red' horizontal>
+                                    お名前
+                                </Label>
+                                {userData.length !== 0 && userData.login_id}
+                            </List.Item>
+                            <List.Item>
+                                <Label color='purple' horizontal>
+                                    保有ポイント
+                                </Label>
+                                {userData.length !== 0 && userData.user_pt}ポイント
+                            </List.Item>
+                            <List.Item>
+                                <Label color='red' horizontal>
+                                    ランク
+                                </Label>
+                                {
+                                    my_ranking_data.badge_grade !== undefined && (
+                                        <img src={badgeImageBaseUrl + badgeImage[my_ranking_data.badge_grade]} style={{margin: 'auto'}} width={200}></img>
+                                    )
+                                }
+                            </List.Item>
+                        </List>
+                        
+                        <div style={{margin: 'auto'}}>
+                            <Button secondary style={{margin: '10px'}} onClick={()=>navigate('/setting')}>　編　集　</Button>
+                        </div>
                     </div>
+
+                    </Segment>
+
                 </div>
 
-                </Segment>
+                <div className='w-full lg:w-3/5 lg:p-8'>
 
-            </div>
+                    <Label as='a' color='red' tag>
+                        予　想　成　績
+                    </Label>
 
-            <div className='w-full lg:w-3/5 lg:p-8'>
-
-                <Label as='a' color='red' tag>
-                    予　想　成　績
-                </Label>
-
-                <Segment raised style={{backgroundColor: "#f5deb3"}}>
-                    <Message
-                        info
-                        header={`　参　加　回　数　：　${my_ranking_data.times !== undefined ? my_ranking_data.times : 0}　回　`}
-                    />
-                    
-                    <div className='mb-3 overflow-x-auto'>
-
-                        <Table celled unstackable compact='very'>
-                            <Table.Header>
-                                <Table.Row>
-                                    <Table.HeaderCell></Table.HeaderCell>
-                                    <Table.HeaderCell>Pt</Table.HeaderCell>
-                                    <Table.HeaderCell>◎</Table.HeaderCell>
-                                    <Table.HeaderCell>〇</Table.HeaderCell>
-                                    <Table.HeaderCell>▲</Table.HeaderCell>
-                                    <Table.HeaderCell>☆</Table.HeaderCell>
-                                    <Table.HeaderCell>穴</Table.HeaderCell>
-                                    <Table.HeaderCell>消</Table.HeaderCell>
-                                    <Table.HeaderCell>単率</Table.HeaderCell>
-                                    <Table.HeaderCell>複率</Table.HeaderCell>
-                                </Table.Row>
-                            </Table.Header>
-                            {
-                                my_ranking_data.length !== 0 && (
-                                    <Table.Body>
-                                        <Table.Row>
-                                            <Table.Cell>月間</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.month_ranking_data.point}pt</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.month_ranking_data.double_circle}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.month_ranking_data.single_circle}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.month_ranking_data.triangle}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.month_ranking_data.five_star}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.month_ranking_data.hole}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.month_ranking_data.disappear}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.month_ranking_data.single}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.month_ranking_data.multiple}%</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>年間</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.year_ranking_data.point}pt</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.year_ranking_data.double_circle}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.year_ranking_data.single_circle}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.year_ranking_data.triangle}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.year_ranking_data.five_star}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.year_ranking_data.hole}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.year_ranking_data.disappear}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.year_ranking_data.single}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.year_ranking_data.multiple}%</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>上期</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.point}pt</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.double_circle}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.single_circle}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.triangle}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.five_star}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.hole}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.disappear}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.single}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.first_half_year_ranking_data.double_circle}%</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>下期</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.point}pt</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.double_circle}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.single_circle}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.triangle}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.five_star}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.hole}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.disappear}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.single}%</Table.Cell>
-                                            <Table.Cell>{my_ranking_data.second_half_year_ranking_data.double_circle}%</Table.Cell>
-                                        </Table.Row>
-                                    </Table.Body>
-                                )
-                            }
-
-                        </Table>
-                    </div>
-                    
-                    <div className="grid grid-cols-4 gap-4 pb-5">
-
-                        <Label color='violet' horizontal size={'large'}>
-                            単勝の回数 : {my_ranking_data.single_win}回
-                        </Label>
-
-                        <Label color='teal' horizontal size={'large'}>
-                            複勝の回数 : {my_ranking_data.double_win}回
-                        </Label> 
+                    <Segment raised style={{backgroundColor: "#f5deb3"}}>
+                        <Message
+                            info
+                            header={`　参　加　回　数　：　${my_ranking_data.times !== undefined ? my_ranking_data.times : 0}　回　`}
+                        />
                         
-                        <Label color='green' horizontal size={'large'}>
-                            馬連の回数 : {my_ranking_data.horse_racing_win}回
-                        </Label>
+                        <div className='mb-3 overflow-x-auto'>
 
-                        <Label color='brown' horizontal size={'large'}>
-                            ３連複の回数 : {my_ranking_data.triple_racing_win}回
-                        </Label>
+                            <Table celled unstackable compact='very'>
+                                <Table.Header>
+                                    <Table.Row>
+                                        <Table.HeaderCell></Table.HeaderCell>
+                                        <Table.HeaderCell>Pt</Table.HeaderCell>
+                                        <Table.HeaderCell>◎</Table.HeaderCell>
+                                        <Table.HeaderCell>〇</Table.HeaderCell>
+                                        <Table.HeaderCell>▲</Table.HeaderCell>
+                                        <Table.HeaderCell>☆</Table.HeaderCell>
+                                        <Table.HeaderCell>穴</Table.HeaderCell>
+                                        <Table.HeaderCell>消</Table.HeaderCell>
+                                        <Table.HeaderCell>単率</Table.HeaderCell>
+                                        <Table.HeaderCell>複率</Table.HeaderCell>
+                                    </Table.Row>
+                                </Table.Header>
+                                {
+                                    my_ranking_data.length !== 0 && (
+                                        <Table.Body>
+                                            <Table.Row>
+                                                <Table.Cell>月間</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.month_ranking_data.point}pt</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.month_ranking_data.double_circle}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.month_ranking_data.single_circle}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.month_ranking_data.triangle}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.month_ranking_data.five_star}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.month_ranking_data.hole}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.month_ranking_data.disappear}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.month_ranking_data.single}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.month_ranking_data.multiple}%</Table.Cell>
+                                            </Table.Row>
+                                            <Table.Row>
+                                                <Table.Cell>年間</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.year_ranking_data.point}pt</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.year_ranking_data.double_circle}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.year_ranking_data.single_circle}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.year_ranking_data.triangle}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.year_ranking_data.five_star}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.year_ranking_data.hole}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.year_ranking_data.disappear}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.year_ranking_data.single}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.year_ranking_data.multiple}%</Table.Cell>
+                                            </Table.Row>
+                                            <Table.Row>
+                                                <Table.Cell>上期</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.first_half_year_ranking_data.point}pt</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.first_half_year_ranking_data.double_circle}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.first_half_year_ranking_data.single_circle}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.first_half_year_ranking_data.triangle}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.first_half_year_ranking_data.five_star}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.first_half_year_ranking_data.hole}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.first_half_year_ranking_data.disappear}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.first_half_year_ranking_data.single}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.first_half_year_ranking_data.double_circle}%</Table.Cell>
+                                            </Table.Row>
+                                            <Table.Row>
+                                                <Table.Cell>下期</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.second_half_year_ranking_data.point}pt</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.second_half_year_ranking_data.double_circle}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.second_half_year_ranking_data.single_circle}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.second_half_year_ranking_data.triangle}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.second_half_year_ranking_data.five_star}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.second_half_year_ranking_data.hole}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.second_half_year_ranking_data.disappear}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.second_half_year_ranking_data.single}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.second_half_year_ranking_data.double_circle}%</Table.Cell>
+                                            </Table.Row>
+                                        </Table.Body>
+                                    )
+                                }
 
-                    </div>
+                            </Table>
+                        </div>
+                        
+                        <div className="grid grid-cols-4 gap-4 pb-5">
 
-                    <EditTable columns_data={columns} ranking_data={my_ranking_data.total_ranking_data}/>
+                            <Label color='violet' horizontal size={'large'}>
+                                単勝の回数 : {my_ranking_data.single_win}回
+                            </Label>
 
-                </Segment>
+                            <Label color='teal' horizontal size={'large'}>
+                                複勝の回数 : {my_ranking_data.double_win}回
+                            </Label> 
+                            
+                            <Label color='green' horizontal size={'large'}>
+                                馬連の回数 : {my_ranking_data.horse_racing_win}回
+                            </Label>
+
+                            <Label color='brown' horizontal size={'large'}>
+                                ３連複の回数 : {my_ranking_data.triple_racing_win}回
+                            </Label>
+
+                        </div>
+
+                        <EditTable columns_data={columns} ranking_data={my_ranking_data.total_ranking_data}/>
+
+                    </Segment>
+
+                </div>
 
             </div>
-
         </div>
     )
 }
