@@ -16,7 +16,7 @@ const GrandeManagementPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const {race_management_data} = useSelector((state:RootState)=>state.gradeReducer);
+    const {race_management_data, race_management_staus} = useSelector((state:RootState)=>state.gradeReducer);
 
     const [gradeOrder, setGradeOrder] = useState<any>(0);
     const [myRankingData, setMyRankingData] = useState<any>([]);
@@ -308,7 +308,7 @@ const GrandeManagementPage = () => {
 
             </div>
 
-            <EditTable columns_data={columns} ranking_data={myRankingData.total_ranking_data} />
+            <EditTable columns_data={columns} ranking_data={myRankingData.total_ranking_data} data_status={race_management_staus} />
 
           </Segment>
 

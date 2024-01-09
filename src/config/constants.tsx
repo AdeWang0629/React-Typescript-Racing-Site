@@ -1,6 +1,6 @@
 // export const serverUrl = "window.location.origin" + "/";
-// export const serverUrl = "http://localhost/";
-export const serverUrl = "https://boc-kid.sakura.ne.jp/";
+export const serverUrl = "http://localhost/";
+// export const serverUrl = "https://boc-kid.sakura.ne.jp/";
 
 const constants = {
     HOST_URL: serverUrl + 'api/',

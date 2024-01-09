@@ -101,7 +101,7 @@ const RankingPage = () => {
     ];
 
     const dispatch = useDispatch();
-    const {user_management_data} = useSelector((state:RootState)=>state.userReducer);
+    const {user_management_data, user_management_status} = useSelector((state:RootState)=>state.userReducer);
     const [data, setData] = useState([]);
     const [open, setOpen] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
@@ -163,7 +163,7 @@ const RankingPage = () => {
 
                 </div>
 
-                <EditTable columns_data={columns} ranking_data={data}/>
+                <EditTable columns_data={columns} ranking_data={data} data_status={user_management_status}/>
 
                 <RegisterModal 
                     _open={open}

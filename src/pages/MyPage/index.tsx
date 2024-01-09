@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 const MyPage = () => {
     
     const { userData } = useSelector((state:RootState)=>state.authReducer);
-    const { my_ranking_data } = useSelector((state:RootState)=>state.rankingReducer);
+    const { my_ranking_data, my_ranking_status } = useSelector((state:RootState)=>state.rankingReducer);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -262,7 +262,7 @@ const MyPage = () => {
 
                         </div>
 
-                        <EditTable columns_data={columns} ranking_data={my_ranking_data.total_ranking_data}/>
+                        <EditTable columns_data={columns} ranking_data={my_ranking_data.total_ranking_data} data_status={my_ranking_status} />
 
                     </Segment>
 

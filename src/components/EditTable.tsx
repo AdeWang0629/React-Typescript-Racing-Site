@@ -22,22 +22,29 @@ const getRandomuserParams = (params: TableParams) => ({
 interface IEditTable {
     columns_data: ColumnsType<RankingDataType>;
     ranking_data: any;
+    data_status: boolean;
 }
 
-const EditTable: React.FC<IEditTable> = ({columns_data, ranking_data}) => {
+const EditTable: React.FC<IEditTable> = ({columns_data, ranking_data, data_status}) => {
     const [data, setData] = useState<RankingDataType[]>();
     const [loading, setLoading] = useState(true);
     const [tableParams, setTableParams] = useState<TableParams>({
         pagination: {
-        current: 1,
-        pageSize: 10,
+            current: 1,
+            pageSize: 10,
         },
     });
 
     useEffect(()=>{
-        setLoading(false)
+        console.log(ranking_data);
         setData(ranking_data);
     },[ranking_data]);
+
+    useEffect(()=>{
+        if (data_status) {
+            setLoading(false);
+        }
+    }, [data_status]);
 
     const handleTableChange = (
         pagination: TablePaginationConfig,
@@ -49,11 +56,6 @@ const EditTable: React.FC<IEditTable> = ({columns_data, ranking_data}) => {
             filters,
             ...sorter,
         });
-    
-        // `dataSource` is useless since `pageSize` changed
-        if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-            setData([ranking_data]);
-        }
     };
 
     return (

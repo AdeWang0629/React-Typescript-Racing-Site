@@ -139,7 +139,7 @@ const RankingPage = () => {
 
     const [selected, setSelected] = useState(ranking[0]);
     const dispatch = useDispatch();
-    const {ranking_data} = useSelector((state:RootState)=>state.rankingReducer);
+    const {ranking_data, ranking_status} = useSelector((state:RootState)=>state.rankingReducer);
     const [data, setData] = useState([]);
 
     useEffect(()=>{
@@ -238,7 +238,7 @@ const RankingPage = () => {
                     )}
                 </Listbox>
 
-                <EditTable columns_data={columns} ranking_data={data}/>
+                <EditTable columns_data={columns} ranking_data={data} data_status={ranking_status} />
 
             </Segment>
 

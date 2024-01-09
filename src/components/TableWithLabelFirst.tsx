@@ -8,6 +8,7 @@ interface ITableWithLabel {
 }
 
 const TableWithLabel : FC<ITableWithLabel> = ({content, data}) => {
+    console.log(data.length, "data");
     return (
 
         <div>
