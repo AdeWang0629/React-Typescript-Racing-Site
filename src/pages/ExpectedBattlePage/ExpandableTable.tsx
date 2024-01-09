@@ -78,7 +78,7 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
 
     const dispatch = useDispatch();
 
-    const {expected_race_data, expected_battle_data} = useSelector((state:RootState) => state.expectedReducer);
+    const {expected_race_data, expected_battle_data, expected_race_status} = useSelector((state:RootState) => state.expectedReducer);
     const {userData} = useSelector((state:RootState) => state.authReducer);
 
     const [open, setOpen] = useState(false);
@@ -139,29 +139,27 @@ const ExpandableTable: React.FC<IExpandableTable> = () => {
     };
 
     useEffect(()=>{
-        setLoading(false);
         if (expected_race_data.length) {
-            // setLoading(false);
             setData(expected_race_data);
         }      
     },[expected_race_data]);
+    
+    useEffect(()=>{
+        if (expected_race_status) {
+            setLoading(false);
+        }      
+    },[expected_race_status]);
 
     const handleTableChange = (
         pagination: TablePaginationConfig,
         filters: Record<string, FilterValue | null> ,
         sorter: SorterResult<RaceDataType> | SorterResult<RaceDataType>[],
-        extra: TableCurrentDataSource<RaceDataType>
     ) => {
         setTableParams({
-        pagination,
-        filters,
-        ...sorter,
+            pagination,
+            filters,
+            ...sorter,
         });
-    
-        // `dataSource` is useless since `pageSize` changed
-        if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-        setData([]);
-        }
     };
 
     const handleExpectedBattle = () => {

@@ -58,7 +58,12 @@ const columns: ColumnsType<RankingDataType> = [
     {
       title: 'pt',
       dataIndex: 'point',
-      sorter: (a:any, b:any) => parseInt(b.point.replace(',', '')) - parseInt(a.point.replace(',', '')),
+      sorter: (a:any, b:any) => {
+        const pointA = parseFloat(a.point.replace(',', ''));
+        const pointB = parseFloat(b.point.replace(',', ''));
+        
+        return pointB - pointA;
+      },
       width: '9%',
     },
     {

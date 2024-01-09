@@ -76,23 +76,22 @@ const ExpandableTable: React.FC<IExpandableTable> = ({showEditModal}) => {
     });
 
     const dispatch = useDispatch();
-    const {races} = useSelector((state:RootState) => state.raceReducer);
+    const {races, races_status} = useSelector((state:RootState) => state.raceReducer);
     const [deleteHorseArray, setDeleteHorseArray] = useState(['0','0','0','0','0']);
     const [open, setOpen] = useState(false);
     const [deleteId, setDeleteId] = useState(0);
 
     useEffect(()=>{
-        setLoading(true);
         dispatch({
             type: actions.GETRACESDATA
         });
     },[]);
 
     useEffect(()=>{
-        dispatch({
-            type: actions.GETRACESDATA
-        });
-    },[]);
+        if (races_status) {
+            setLoading(true);
+        }
+    }, [races_status]);
 
     const showModal = (id:any) => {
         setOpen(true);
