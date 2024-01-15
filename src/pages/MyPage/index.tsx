@@ -126,7 +126,7 @@ const MyPage = () => {
                                 <Label color='red' horizontal>
                                     お名前
                                 </Label>
-                                {userData.length !== 0 && userData.login_id}
+                                {userData.length !== 0 && userData.name}
                             </List.Item>
                             <List.Item>
                                 <Label color='purple' horizontal>
@@ -221,7 +221,7 @@ const MyPage = () => {
                                                 <Table.Cell>{my_ranking_data.first_half_year_ranking_data.hole}%</Table.Cell>
                                                 <Table.Cell>{my_ranking_data.first_half_year_ranking_data.disappear}%</Table.Cell>
                                                 <Table.Cell>{my_ranking_data.first_half_year_ranking_data.single}%</Table.Cell>
-                                                <Table.Cell>{my_ranking_data.first_half_year_ranking_data.double_circle}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.first_half_year_ranking_data.multiple}%</Table.Cell>
                                             </Table.Row>
                                             <Table.Row>
                                                 <Table.Cell>下期</Table.Cell>
@@ -233,7 +233,7 @@ const MyPage = () => {
                                                 <Table.Cell>{my_ranking_data.second_half_year_ranking_data.hole}%</Table.Cell>
                                                 <Table.Cell>{my_ranking_data.second_half_year_ranking_data.disappear}%</Table.Cell>
                                                 <Table.Cell>{my_ranking_data.second_half_year_ranking_data.single}%</Table.Cell>
-                                                <Table.Cell>{my_ranking_data.second_half_year_ranking_data.double_circle}%</Table.Cell>
+                                                <Table.Cell>{my_ranking_data.second_half_year_ranking_data.multiple}%</Table.Cell>
                                             </Table.Row>
                                         </Table.Body>
                                     )

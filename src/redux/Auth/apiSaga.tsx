@@ -14,14 +14,15 @@ function* login({payload} : any) : Generator<any, void, any> {
       data: data
     };
 
-    const response = yield call(() => postRequest('user', newData));
+    const response = yield call(() => postRequest('hp-user', newData));
 
     const jwtToken = response.data.token;
     if (jwtToken) {
       const userData = response.data.user;
 
-      // removeToken();
-      // removeUserToken();
+      removeToken();
+      removeUserToken();
+      
       setToken(jwtToken);
       setUserToken(userData);
       
@@ -51,26 +52,29 @@ function* register({payload} : any) : Generator<any, void, any> {
       data: data
     };
 
-    const response = yield call(() => postRequest('user-register', newData));
+    let response;
 
+    if (data['type'] == 'normal') {
+      response = yield call(() => postRequest('hp-user-register', newData));
+    }else {
+      response = yield call(()=> postRequest('union-user-register', newData));
+    }
+    
     const jwtToken = response.data.token;
     const userData = response.data.user;
 
-    // removeToken();
-    // removeUserToken();
+    removeToken();
+    removeUserToken();
+
     setToken(jwtToken);
     setUserToken(userData);
     
     axiosClient.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
     yield put({type: actions.LOGIN_SUCCESS, payload: userData});
+    
     navigate('/');
-  } catch (error) {
-    // yield put({type: actions.REGISTER_FAILURE});
-    // if(error.response.status === 422) {
-    //   // message.error(error.response.data.message);
-    // } else {
-    //   // message.error('Something Went Wrong');
-    // }
+  } catch (error:any) {
+    toast.error(error.response.data.message);
   }
 }
 
@@ -112,6 +116,7 @@ function* update_userdata({payload} : any) : Generator<any, void, any> {
 
     removeToken();
     removeUserToken();
+    
     setToken(jwtToken);
     setUserToken(userData);
     

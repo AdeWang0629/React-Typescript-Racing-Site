@@ -1,5 +1,5 @@
 // export const serverUrl = "window.location.origin" + "/";
-// export const serverUrl = "http://localhost/";
+// export const serverUrl = "http://localhost/Racing_laravel_admin/public/";
 export const serverUrl = "https://boc-kid.sakura.ne.jp/";
 
 const constants = {

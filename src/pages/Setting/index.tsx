@@ -20,7 +20,7 @@ const SettingPage: FC = (): ReactElement => {
     const navigate = useNavigate();
 
     const [values, setValues] = useState({
-        login_id: "",
+        user_name: "",
         old_password: "",
         new_password: "",
         confirm_new_password: "",
@@ -32,7 +32,7 @@ const SettingPage: FC = (): ReactElement => {
     const {userData} = useSelector((state:RootState) => state.authReducer);
 
     const validationSchema = Yup.object({
-        login_id: Yup.string().required('ユーザーIDを入力してください'),
+        user_name: Yup.string().required('ユーザーIDを入力してください'),
         old_password: Yup.string().min(5, 'パスワードは5文字以上で入力してください')
             .required('以前のパスワードを入力してください'),
         new_password: Yup.string().min(5, 'パスワードは5文字以上で入力してください')
@@ -89,17 +89,17 @@ const SettingPage: FC = (): ReactElement => {
                         </div>
 
                         <div>
-                            <label htmlFor="login_id" className="block text-sm font-medium leading-6 text-gray-900">
-                            ユーザーID
+                            <label htmlFor="user_name" className="block text-sm font-medium leading-6 text-gray-900">
+                                ユーザー名
                             </label>
                             <div className="mt-2">
                             <Field
-                                id="login_id"
-                                name="login_id"
+                                id="user_name"
+                                name="user_name"
                                 type="text"
                                 className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
-                            <ErrorMessage name="login_id" component="div" className="text-red-500" />
+                            <ErrorMessage name="user_name" component="div" className="text-red-500" />
                             </div>
                         </div>
 
